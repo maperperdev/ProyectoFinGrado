@@ -78,22 +78,53 @@ Al tratarse de un proyecto de investigación, las tecnologías usadas serán nov
 
 En la capa de presentación se usarán a parte de las tecnologías habituales HTML/CSS/Javascript también se usará un framework de CSS, Tailwind; la librería d3.js y el framework Vue de Javascript, que se pasará a comentar a continuación:
 
+
+###### Vue 
+Vue es un framework de JavaScript. Es de código libre y se usa para desarrollar interfaces web. Vue se centra en la capa de presentación y puede ser integrado sin mayor problema en proyectos grandes sin problemas.
+
+Vue nació como una derivación del framework Angular, del cual el creador del framework, Alan Yu, extrajo sus mejores características. Esto hace que Vue sea un framework fácil de usar e integrar con otras tecnologías.
+
+Sus principales características son:
+
+* Ligero: Vue es un framework muy ligero, su core apenas ocupa 24 KB y conceptualmente se trata de un framework incremental. 
+
+* DOM virtual: Vue usa un DOM virtual que permite que los cambios fruto del uso de la aplicación no sean implementados directamente en el DOM sino en una réplica del mismo. Es decir, se crea una réplica del DOM que contendrá sólamente la estructura del DOM. Los cambios se realizarán en el DOM virtual creado y posteriormente se actulizará el DOM real. Con esto se consigue que los cambios puedan ocurrir más rápido.
+
+* Directivas: VueJS lleva implementadas librerías como v-if, v-else, v-show, v-on, v-bind, y v-model, que son usadas para realizar diferentes modificaciones en el DOM.
+
+* Data Binding: Al igual que en Angular, Vue incorpora esta funcionalidad que permite manipular o asignar valores a los atributos HTML para cambiar el estilo, asignar clases con la ayuda de la directiva  **v-bind**.
+
+* Componentes: Como es habitual en los framework de frontend, Vue también incorpora componentes con el objeto de modularizar la aplicación y hacerla más mantenible y reutilizable.
+
+* "Computed properties": Es una de las propiedades más importante que ofrece Vue. Sirve para ayudar a registrar los cambios que se producen en los elementos de la interfaz sin necesidad de realizar posteriores cálculos.
+
+* Manejo de eventos: Con la directiva **v-on** añadida a los elementos HTML se pueden escuchar los eventos que se produzcan.
+
+
+
+###### d3.js 
+
+###### Tailwind 
+
 ##### 3.1.1 Entorno tecnológico en el lado del cliente (Backend)
 
 En el lado del servidor se usará el framework Laravel de PHP, que será la pieza clave de la aplicación, ya que sobre él se integrarán el resto de tecnologías tanto de frontend como de base de datos.
 
-#### Laravel
+###### Laravel
 
 Es un framework de PHP que usa el patróm MVC (Modelo-Vista-Controlador). Se instala con el gestor de dependencias de PHP llamado Composer.
 <!-- https://www.optisolbusiness.com/insight/top-6-features-of-php-laravel-framework -->
 Sus características principales son las siguientes:
 
-- Sintaxis elegante y funcional que facilita la legilidad de código.
+* Sintaxis elegante y funcional que facilita la legilidad de código.
   Framework ligero que implementa algunas funcionalidades de Symphony y que cuenta con un motor de plantillas propio llamado Blade y además permite incorporar widgets de CSS y Javascript.
-- Uso del patrón MVC (modelo-vista-controlador) que permita separa la lógica de negocio y la capa de presentación lo cual lo hace fácilmene escalable.
-- Uso del ORM Eloquent que permite usar consultas de SQL pero usando la sintaxis de PHP, mucho más amigable.
-- Usa las funciones integradas para manejar el enrutamiento, la administración de usuarios, el almacenamiento en caché y mucho más.
-- En cuanto a seguridad...
+* Uso del patrón MVC (modelo-vista-controlador) que permita separa la lógica de negocio y la capa de presentación lo cual lo hace fácilmene escalable.
+* Uso del ORM Eloquent que permite usar consultas de SQL pero usando la sintaxis de PHP, mucho más amigable.
+* Usa las funciones integradas para manejar el enrutamiento, la administración de usuarios, el almacenamiento en caché y mucho más.
+* En cuanto a seguridad, Laravel ofrece el algoritmo Bcrypt para evitar que las contraseñas se guarden en la base de datos como texto plano. Aparte de eso, este framework ofrece consultas preparadas para prevenir los ataques de inyección de SQL.
+* Ofrece una herramienta de línea de comandos que automatiza la mayoría de tareas tediosas y repetitivas. Además de eso permite crear la estructura de la base de datos y facilita el manejo de migraciones.
+* Laravel viene con librerías preinstaladas que no vienen instaladas en otros Frameworks de PHP como puedan ser las librerías de autentificación, reseteo de contraseñas, protección CSRF (Cross-site Request Forgery) y encriptado.
+
 ### 3.2. Modelado de datos
 
 <!-- Se parte de los requisitos de información recogidos en el Estudio de Viabilidad. -->
