@@ -21,12 +21,17 @@ Al tratarse de un trabajo de investigación se usarán tecnologías no usadas en
 Dado que se trata de un proyecto para finalizar los estudios de Grado Superior de Desarrollo de Aplicaciones Web, es importante fijar unas metas razonables debido a que se cuenta con un tiempo determinado.
 
 ### 2.1. Descripción del Sistema Actual
+El sistema actual consistiría en una pantall de login/registro que sería la pantalla que vería el usuario al conectarse a la aplicación. Si el usuario estuviese registrado, introducirá sus credenciales (email y contraseña) y accederá a la pantalla principal.
+
+Desde esa pantalla principal el usuario podrá acceder al estado de su cuenta, ingresar dinero, comprar activos y consultar la evolución en el tiempo del precio de los activos que tenga en cartera como de los que pretenda seguir o comprar.
+
+El usuario dispondrá de herramientas gráficas para estimar las predicciones en cuanto a valoraciones futuras que podría tener un activo de su interés.
 
 ### 2.2. Descripción del Sistema Nuevo
 
 ### 2.3. Identificación de Requisitos del Sistema
 
-El primer lugar se requiere de una máquina que actúe como servidor de la aplicación y que se encargará principalmente de la parte de Bac
+El primer lugar se requiere de una máquina que actúe como servidor de la aplicación con lo cual necesitará de acceso a internet y que se encargará principalmente de la parte de Bac
 
 #### 2.3.1. Requisitos de información
 Los requisitos de información que la aplicación demanda se pueden dividir en dos tipos principalmente atendiendo a la procedencia de los mismos.
@@ -162,10 +167,55 @@ Tiene las siguientes características:
 
 
 ### 3.2. Modelado de datos
+Se usará un modelo de base de datos relacional en la cual existirán cuatro tablas:
+* Tabla user: Se guardan los datos de los usuarios y tendrá los siguientes campos:
+  * id_user
+  * user_name
+  * email
+  * password
+  * money_account
+  * id_account
+
+La clave primaria de esta tabla es id_user y en ella se importa una clave foránea perteneciente a la tabla account (id_account).
+
+
+* Tabla account: En ella irán alojados los campos relativos a las operaciones financieras en curso.
+  * id_account
+  * asset_symbol
+  * purchase_price
+  * quantity
+  * purchase_date
+
+La clave primaria de esta tabla es id_account y se exportará a la tabla user. Tendrá un tipo de relación de uno a uno.
+
+* Tabla historic_operations: En ella irán alojados los campos relativos a las operaciones financieras finalizadas. 
+  * id_account
+  * asset_symbol
+  * purchase_price
+  * quantity
+  * purchase_date
+  * selling_price
+  * selling_date
+
+Esta tabla es una copia de la account que recoje las operaciones finalizadas a modo de registro histórico de las mismas. Tiene los mismos campos que la tabla account más los campos selling_price (precio de venta) y selling_date (fecha de venta). 
+
+* Tabla stock_symbol_name:
+  * stock_symbol
+  * stock_name
+
+En esta última tabla se recojen los nombres y símbolos de las acciones que el usuario puede comprar. 
+
+* Tabla crypto_symbol_name:
+  * crypto_symbol
+  * crypto_name
+
+En esta última tabla se recojen los nombres y símbolos de la cotización de las criptomonedas en dólares. 
+
 
 <!-- Se parte de los requisitos de información recogidos en el Estudio de Viabilidad. -->
 
  #### 3.2.1. Modelo Entidad-Relación
+
 
 <!-- Tanto para bases de datos relacionales como no relacionales se deberá realizar un Diagrama E/R. -->
 <!-- Se mostrará un volcado gráfico del diagrama realizado con una Herramienta CASE. Se adjuntará también el archivo correspondiente de la Herramienta CASE utilizada. -->
@@ -180,6 +230,7 @@ Tiene las siguientes características:
 
 ### 3.3. Identificación de los usuarios participantes y finales
 <!-- Dar una explicación de cada usuario u otro sistema con el que interactúe la aplicación. -->
+Los usuarios que participarán serán únicamente usuarios finales. No se prevé tener un administrador que gestione los datos, ya que se trata de una aplicación destinada a la inversión personal para que el usuario pueda seguir la evolución de su cartera de inversión a lo largo del tiempo.
 
 ### 3.4. Identificación de subsistemas de análisis
 <!-- Dividimos el sistema en partes o subsistemas. Dar una explicación de cada subsistema y mostrar un diagrama de subsistemas en el que se vea cada usuario (u otro sistema) con qué subsistema interactúa. -->
