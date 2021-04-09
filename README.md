@@ -22,6 +22,9 @@ Dado que se trata de un proyecto para finalizar los estudios de Grado Superior d
 
 ### 2.1. Descripción del Sistema Actual
 (llevar las cuentas en un excel y pasarlo a una app)
+
+Habitualmente las personas que tienen inversiones han usado para llevar un registro de ellas métodos rudimentarios como plantillas de excel. Esto hace que la mayoría de los datos estén desorganizados
+
 El sistema actual consistiría en una pantalla de login/registro que sería la pantalla que vería el usuario al conectarse a la aplicación. Si el usuario estuviese registrado, introducirá sus credenciales (email y contraseña) y accederá a la pantalla principal.
 
 Desde esa pantalla principal el usuario podrá acceder al estado de su cuenta, ingresar dinero, comprar activos y consultar la evolución en el tiempo del precio de los activos que tenga en cartera como de los que pretenda seguir o comprar.
