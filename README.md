@@ -21,7 +21,8 @@ Al tratarse de un trabajo de investigación se usarán tecnologías no usadas en
 Dado que se trata de un proyecto para finalizar los estudios de Grado Superior de Desarrollo de Aplicaciones Web, es importante fijar unas metas razonables debido a que se cuenta con un tiempo determinado.
 
 ### 2.1. Descripción del Sistema Actual
-El sistema actual consistiría en una pantall de login/registro que sería la pantalla que vería el usuario al conectarse a la aplicación. Si el usuario estuviese registrado, introducirá sus credenciales (email y contraseña) y accederá a la pantalla principal.
+(llevar las cuentas en un excel y pasarlo a una app)
+El sistema actual consistiría en una pantalla de login/registro que sería la pantalla que vería el usuario al conectarse a la aplicación. Si el usuario estuviese registrado, introducirá sus credenciales (email y contraseña) y accederá a la pantalla principal.
 
 Desde esa pantalla principal el usuario podrá acceder al estado de su cuenta, ingresar dinero, comprar activos y consultar la evolución en el tiempo del precio de los activos que tenga en cartera como de los que pretenda seguir o comprar.
 
