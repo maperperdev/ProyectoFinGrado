@@ -246,3 +246,5 @@ Los usuarios que participarán serán únicamente usuarios finales. No se prevé
 
 ### 3.6. Diagramas de Análisis
 <!-- Adjuntar los diagramas utilizados en el análisis: diagramas de casos de uso, diagrama de estados, diagramas de secuencia o interacción, diagramas de clases, tablas de decisión, etc. En este caso serán siempre volcados gráficos desde una Herramienta CASE. -->
+
+https://pastebin.com/ZdP0sLWx
