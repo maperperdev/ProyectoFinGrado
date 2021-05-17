@@ -1,6 +1,6 @@
-##Instrucciones para la instalación:
+## Instrucciones para la instalación:
 * Clonar/descargar el repositorio: `git clone https://github.com/maperperdev/ProyectoFinGrado.git`
-* Instalar PHP: `<sudo apt install libapache2-mod-php php php-common php-xml php-gd php-opcache php-mbstring php-tokenizer php-json php-bcmath php-zip unzip`
+* Instalar PHP: `sudo apt install libapache2-mod-php php php-common php-xml php-gd php-opcache php-mbstring php-tokenizer php-json php-bcmath php-zip unzip`
 * Instalar composer: `curl -sS https://getcomposer.org/installer | php sudo mv composer.phar /usr/local/bin/composer`.
 * Editar el fichero ~/bashrc agregando la siguiente línea: `export PATH="$HOME/.config/composer/vendor/bin:$PATH"`.
 * Actualizar el archivo de las variables de entorno: 
