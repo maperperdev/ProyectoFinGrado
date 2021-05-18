@@ -7,6 +7,8 @@ use App\User;
 
 class Operation extends Model
 {
+    public $timestamps = false;
+
     public function getOperationsById($id)
     {
         return Operation::where('id_user', $id)->get();

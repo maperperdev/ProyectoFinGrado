@@ -35,4 +35,8 @@ Route::post('/stocksData', 'DataFromYahooController@getPriceToday');
 
 Route::get('/pricesHistory', 'AssetNameSymbolController@listAllStocksForGraphics')->name('makeGraphics')->middleware('auth');
 
+Route::get('/buyStocks', 'OperationController@create');
+
 Route::post('/makeChart', 'DataFromYahooController@getDataForChart');
+
+Route::post('/buyStocks', 'OperationController@store');

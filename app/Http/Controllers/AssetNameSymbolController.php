@@ -21,7 +21,7 @@ class AssetNameSymbolController extends Controller
     //     ]);
     // }
 
-    public function listAllStocks()
+    public static function listAllStocks()
     {
         return AssetNameSymbol::where('asset_type', '1')->orderBy('asset_name')->get();
     }

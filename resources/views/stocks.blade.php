@@ -1,20 +1,8 @@
-<!-- <form action="/stocksData" method="POST">
-@csrf
-<input list="companySymbols" name="companySymbol" id="companySymbol" placeholder="Introduce the name of a stock">
-<datalist id="companySymbols">
-    @foreach ($stocks as $stock)
-    <option value="{{$stock->asset_symbol}}">{{ $stock->asset_name }}</option>
-    @endforeach
-</datalist>
- <input type="submit" value="check price">
-</form>
-<p>{{ $price ?? '' }}</p> -->
-
 <meta name="csrf-token" content="{{{ csrf_token() }}}">
 <input list="companySymbols" name="companySymbol" id="companySymbol" placeholder="Introduce the name of a stock">
 <datalist id=companySymbols>
     @foreach ($stocks as $stock)
-    <option value="{{$stock->asset_symbol}}">{{ $stock->asset_name }}</option>
+    <option id="{{ $stock->id }}" value="{{$stock->asset_symbol}}">{{ $stock->asset_name }}</option>
     @endforeach
 </datalist>
 <input type="number" name="price" id="price" readonly>
