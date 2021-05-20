@@ -36,6 +36,7 @@ class DataFromYahooController extends Controller
 			. "&interval=1d&events=history&includeAdjustedClose=true";
 		$csv = file_get_contents($url);
 		$array = array_map("str_getcsv", explode("\n", $csv));
+		// var_dump($array);
 		$cleanArray = array();
 
 		for ($i = 1; $i < count($array); $i++) {

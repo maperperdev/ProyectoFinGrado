@@ -1,14 +1,18 @@
 <meta name="csrf-token" content="{{{ csrf_token() }}}">
-<input list="companySymbols" name="companySymbol" id="companySymbol" placeholder="Introduce the name of a stock">
-<datalist id=companySymbols>
-    @foreach ($stocks as $stock)
-    <option value="{{$stock->asset_symbol}}">{{ $stock->asset_name }}</option>
-    @endforeach
-</datalist>
 
-<br /><input type="date" name="startDate" id="startDate" required />
-<br /><input type="date" name="endDate" id="endDate" required />
-<br /><input type="button" value="Enviar" id="button" />
+<div>
+
+    <input list="companySymbols" name="companySymbol" id="companySymbol" placeholder="Introduce the name of a stock">
+    <datalist id=companySymbols>
+        @foreach ($stocks as $stock)
+        <option value="{{$stock->asset_symbol}}">{{ $stock->asset_name }}</option>
+        @endforeach
+    </datalist>
+
+    <br /><input type="date" name="startDate" id="startDate" required />
+    <br /><input type="date" name="endDate" id="endDate" required />
+    <br /><input type="button" value="Enviar" id="button" />
+</div>
 
 
 <svg id="container"></svg>
@@ -62,6 +66,7 @@
                 10: 'Nov',
                 11: 'Dec',
             }
+            document.getElementById("container").innerHTML = ""
 
             var dateFormat = d3.timeParse('%Y-%m-%d')
             for (var i = 0; i < prices.length; i++) {
@@ -100,15 +105,7 @@
                 .scale(xScale)
                 .tickFormat(function(d) {
                     d = dates[d]
-                    hours = d.getHours()
-                    minutes = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes()
-                    amPM = hours < 13 ? 'am' : 'pm'
                     return (
-                        hours +
-                        ':' +
-                        minutes +
-                        amPM +
-                        ' ' +
                         d.getDate() +
                         ' ' +
                         months[d.getMonth()] +
@@ -221,15 +218,7 @@
                     d3.axisBottom(xScaleZ).tickFormat((d, e, target) => {
                         if (d >= 0 && d <= dates.length - 1) {
                             d = dates[d]
-                            hours = d.getHours()
-                            minutes = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes()
-                            amPM = hours < 13 ? 'am' : 'pm'
                             return (
-                                hours +
-                                ':' +
-                                minutes +
-                                amPM +
-                                ' ' +
                                 d.getDate() +
                                 ' ' +
                                 months[d.getMonth()] +
