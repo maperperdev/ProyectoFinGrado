@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "stylus-loader": "^3.0.2",
-        "tailwindcss": "^2.1.2"
+        "tailwindcss": "^2.1.2",
+        "vue-router": "^3.5.1"
     }
 }

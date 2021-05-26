@@ -23,6 +23,8 @@ Route::get('/user', 'UsersController@getLoggedUser');
 
 Route::get('/stocks', 'AssetNameSymbolController@listAllStocksForBuying')->name('stocks');
 
+Route::get('/listOfStocks', 'AssetNameSymbolController@listAllStocks');
+
 Route::post('/stocks', function () {
     return view("/stocks");
 })->name('stocks.price');
@@ -40,3 +42,7 @@ Route::get('/buyStocks', 'OperationController@create');
 Route::post('/makeChart', 'DataFromYahooController@getDataForChart');
 
 Route::post('/buyStocks', 'OperationController@store');
+
+Route::get('/{any?}', function () {
+    return view('welcome');
+});

@@ -3,38 +3,38 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{{ csrf_token() }}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>Portfolio</title>
     <link href="css/app.css" rel="stylesheet">
-    <script type="text/javascript" src="../js/app.js"></script>
 </head>
 
-<body class="bg-gray-400">
-
-    <div id="app">
-
+<body class="bg-blue-400">
+    <div id="app" class="px-5 mx-auto">
         <header-landing-page>
             @if (Route::has('login'))
+            @auth
+            <a class="mr-5 hover:text-gray-900" href="{{ url('/home') }}">Home</a>
+            @else
+            <a class="mr-5 hover:text-gray-900" href="{{ route('login') }}">Login</a>
 
-            <div class="top-right links">
-                @auth
-                <a :class="buttonStyle" href="{{ url('/home') }}">Home</a>
-                @else
-                <a :class="buttonStyle" href="{{ route('login') }}">Login</a>
-
-                @if (Route::has('register'))
-                <a :class="buttonStyle" href="{{ route('register') }}">Register</a>
-                @endif
-                @endauth
-            </div>
+            @if (Route::has('register'))
+            <a class="mr-5 hover:text-gray-900" href="{{ route('register') }}">Register</a>
             @endif
-
+            @endauth
         </header-landing-page>
 
-        <example-component></example-component>
-        <script type="text/javascript" src="../js/app.js"></script>
+        @endif
 
+        <list-of-assets csrf="{{csrf_token()}}"></list-of-assets>
+        <!-- <router-view></router-view>
+        <router-link to="/about">About</router-link>
+        <router-link to="/">Home</router-link>
+        <router-link to="/header-landing-page">LandingPage</router-link> -->
+        <my-footer></my-footer>
     </div>
+
+    <script src="../js/app.js"></script>
 </body>
 
 </html>
