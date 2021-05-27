@@ -133,11 +133,11 @@
       >
         <div class="w-full px-4 mx-auto text-center md:w-4/12">
           <div class="py-1 text-sm font-semibold text-gray-600">
-            Copyright © {{ date }} Tailwind Starter Kit by
+            Copyright © {{ date }} Portfolio digital by
             <a
-              href="https://www.creative-tim.com"
+              href="https://github.com/maperperdev"
               class="text-gray-600 hover:text-gray-900"
-              >Creative Tim</a
+              >maperperdev</a
             >.
           </div>
         </div>

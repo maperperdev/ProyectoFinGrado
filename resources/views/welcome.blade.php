@@ -14,24 +14,24 @@
         <header-landing-page>
             @if (Route::has('login'))
             @auth
-            <a class="mr-5 hover:text-gray-900" href="{{ url('/home') }}">Home</a>
+            <a class="mr-5 hover:text-gray-900" href="{{ url('/home') }}">Portfolio digital</a>
             @else
             <a class="mr-5 hover:text-gray-900" href="{{ route('login') }}">Login</a>
 
             @if (Route::has('register'))
-            <a class="mr-5 hover:text-gray-900" href="{{ route('register') }}">Register</a>
+            <a class="mr-5 hover:text-gray-900" href="{{ route('register') }}">Registro</a>
             @endif
             @endauth
         </header-landing-page>
 
         @endif
 
-        <list-of-assets csrf="{{csrf_token()}}"></list-of-assets>
+        <list-of-assets></list-of-assets>
         <!-- <router-view></router-view>
         <router-link to="/about">About</router-link>
         <router-link to="/">Home</router-link>
         <router-link to="/header-landing-page">LandingPage</router-link> -->
-        <my-footer></my-footer>
+        <!-- <my-footer></my-footer> -->
     </div>
 
     <script src="../js/app.js"></script>

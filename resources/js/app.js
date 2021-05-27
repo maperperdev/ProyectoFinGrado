@@ -3,7 +3,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes';
 import HeaderLandingPage from './components/HeaderLandingPage';
-import Home from './components/Home';
 import Footer from './components/Footer';
 import ListOfAssets from './components/ListOfAssets';
 
@@ -32,7 +31,6 @@ const app = new Vue({
     components: {
         'header-landing-page': HeaderLandingPage,
         'my-footer': Footer,
-        'home': Home,
         'list-of-assets': ListOfAssets
     }
 });
