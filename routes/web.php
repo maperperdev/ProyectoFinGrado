@@ -19,11 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/user', 'UsersController@getLoggedUser');
-
 Route::get('/stocks', 'AssetNameSymbolController@listAllStocksForBuying')->name('stocks');
 
 Route::get('/listOfStocks', 'AssetNameSymbolController@listAllStocks');
+
+Route::get('/listOfCryptos', 'AssetNameSymbolController@listAllCryptos');
 
 Route::post('/stocks', function () {
     return view("/stocks");
@@ -33,7 +33,7 @@ Route::get('/cryptos', 'AssetNameSymbolController@listAllCryptos');
 
 Route::get('/price', 'DataFromYahooController@getPriceToday');
 
-Route::post('/stocksData', 'DataFromYahooController@getPriceToday');
+Route::post('/assetPrice', 'DataFromYahooController@getPriceToday');
 
 Route::get('/pricesHistory', 'AssetNameSymbolController@listAllStocksForGraphics')->name('makeGraphics')->middleware('auth');
 
@@ -42,6 +42,10 @@ Route::get('/buyStocks', 'OperationController@create');
 Route::post('/makeChart', 'DataFromYahooController@getDataForChart');
 
 Route::post('/buyStocks', 'OperationController@store');
+
+Route::get('/home/{any?}', function () {
+    return view('home');
+});
 
 Route::get('/{any?}', function () {
     return view('welcome');

@@ -2,20 +2,20 @@
   <div>
     <input
       type="text"
-      list="companySymbols"
+      list="assetSymbolList"
       name="companySymbol"
       id="companySymbol"
-      placeholder="Escriba el nombre de una acción"
+      :placeholder="placeholderMessage"
       v-model="assetName"
       @change="getPrice()"
     />
-    <datalist id="companySymbols">
-      <option v-for="stock of listOfStocks" :key="stock.asset_symbol">
-        {{ stock.asset_name }}
+    <datalist id="assetSymbolList">
+      <option v-for="asset of listOfAssets" :key="asset.asset_symbol">
+        {{ asset.asset_name }}
       </option>
     </datalist>
     <p>Precio</p>
-    <input type="number" :value="fixedPrice()" readonly />
+    <input type="number" v-model="price" readonly />
   </div>
 </template>
 
@@ -31,42 +31,72 @@ input {
 import axios from "axios";
 
 export default {
+  props: [
+    // "apiGetPriceAsset",
+    // "apiListAssetURL",
+    // "fixedDecimal",
+    // "placeholderMessage",
+    "selected",
+  ],
   data() {
     return {
+      apiGetPriceAsset: "",
+      apiListAssetURL: "",
+      fixedDecimal: "",
+      placeholderMessage: "",
       assetName: "",
-      listOfStocks: [],
+      listOfAssets: [],
       price: "",
     };
   },
-  computed: {
-    fixedPrice() {
-      return this.price.toFixed(2) + " $";
-    },
-  },
   methods: {
-    getListStocks() {
+    getListAsset() {
       axios
-        .get("/listOfStocks")
-        .then((promiseResponse) => (this.listOfStocks = promiseResponse.data));
+        .get(this.apiListAssetURL)
+        .then((promiseResponse) => (this.listOfAssets = promiseResponse.data));
     },
-    getStockSymbolFromAssetName() {
-      return this.listOfStocks.filter(
+    getAssetSymbolFromAssetName() {
+      return this.listOfAssets.filter(
         (elem) => elem.asset_name === this.assetName
       )[0].asset_symbol;
     },
     getPrice() {
       axios
-        .post("/stocksData", {
-          companySymbol: this.getStockSymbolFromAssetName(),
+        .post(this.apiGetPriceAsset, {
+          assetSymbol: this.getAssetSymbolFromAssetName(),
         })
         .then(
           (promiseResponse) =>
-            (this.price = parseFloat(promiseResponse.data.price))
+            (this.price = parseFloat(promiseResponse.data.price).toFixed(
+              this.fixedDecimal
+            ))
         );
+    },
+    updateData() {
+      if (this.selected === "Acciones") {
+        this.apiListAssetURL = "/listOfStocks";
+        this.fixedDecimal = 2;
+        this.placeholderMessage = "Nombre de la acción";
+      }
+      if (this.selected === "Criptomonedas") {
+        this.apiListAssetURL = "/listOfCryptos";
+        this.fixedDecimal = 5;
+        this.placeholderMessage = "Nombre de la criptomoneda";
+      }
+      this.apiGetPriceAsset = "/assetPrice";
+    },
+  },
+  watch: {
+    selected: function () {
+      this.assetName = "";
+      this.price = "";
+      this.updateData();
+      this.getListAsset();
     },
   },
   mounted() {
-    this.getListStocks();
+    this.updateData();
+    this.getListAsset();
   },
 };
 </script>

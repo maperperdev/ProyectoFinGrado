@@ -5,6 +5,12 @@ import routes from './routes';
 import HeaderLandingPage from './components/HeaderLandingPage';
 import Footer from './components/Footer';
 import ListOfAssets from './components/ListOfAssets';
+import Home from './components/Home';
+import BuyAsset from './components/BuyAsset';
+import SellAsset from './components/SellAsset';
+import PortfolioValue from './components/PortfolioValue';
+import Graphics from './components/Graphics';
+import Account from './components/Account';
 
 Vue.use(VueRouter);
 
@@ -31,6 +37,12 @@ const app = new Vue({
     components: {
         'header-landing-page': HeaderLandingPage,
         'my-footer': Footer,
-        'list-of-assets': ListOfAssets
+        'list-of-assets': ListOfAssets,
+        'home': Home,
+        'buy-asset': BuyAsset,
+        'sell-asset': SellAsset,
+        'porfolio-value': PortfolioValue,
+        'graphics': Graphics,
+        'account': Account
     }
 });

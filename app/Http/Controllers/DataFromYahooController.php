@@ -9,8 +9,8 @@ class DataFromYahooController extends Controller
 
 	public function getPriceToday(Request $request)
 	{
-		$companySymbol = $request->input("companySymbol");
-		$url = "https://query1.finance.yahoo.com/v7/finance/download/" . $companySymbol;
+		$assetSymbol = $request->input("assetSymbol");
+		$url = "https://query1.finance.yahoo.com/v7/finance/download/" . $assetSymbol;
 
 		$csv = file_get_contents($url);
 		$array = array_map("str_getcsv", explode("\n", $csv));

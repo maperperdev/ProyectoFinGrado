@@ -31,7 +31,7 @@
         <router-link to="/about">About</router-link>
         <router-link to="/">Home</router-link>
         <router-link to="/header-landing-page">LandingPage</router-link> -->
-        <!-- <my-footer></my-footer> -->
+        <my-footer></my-footer>
     </div>
 
     <script src="../js/app.js"></script>
