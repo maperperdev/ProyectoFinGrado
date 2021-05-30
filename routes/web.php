@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\UsersController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -42,6 +44,10 @@ Route::get('/buyStocks', 'OperationController@create');
 Route::post('/makeChart', 'DataFromYahooController@getDataForChart');
 
 Route::post('/buyStocks', 'OperationController@store');
+
+Route::post('/getAccountValue', 'OperationController@getAccountValue');
+
+Route::get('/user/id', 'UsersController@getUserId');
 
 Route::get('/home/{any?}', function () {
     return view('home');

@@ -10,6 +10,11 @@ class DataFromYahooController extends Controller
 	public function getPriceToday(Request $request)
 	{
 		$assetSymbol = $request->input("assetSymbol");
+		return $this->getPriceAsset($assetSymbol);
+	}
+
+	public static function getPriceAsset($assetSymbol)
+	{
 		$url = "https://query1.finance.yahoo.com/v7/finance/download/" . $assetSymbol;
 
 		$csv = file_get_contents($url);
@@ -36,7 +41,6 @@ class DataFromYahooController extends Controller
 			. "&interval=1d&events=history&includeAdjustedClose=true";
 		$csv = file_get_contents($url);
 		$array = array_map("str_getcsv", explode("\n", $csv));
-		// var_dump($array);
 		$cleanArray = array();
 
 		for ($i = 1; $i < count($array); $i++) {

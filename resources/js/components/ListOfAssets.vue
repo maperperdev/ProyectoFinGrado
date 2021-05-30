@@ -15,7 +15,8 @@
       </option>
     </datalist>
     <p>Precio</p>
-    <input type="number" v-model="price" readonly />
+    <input id="price" type="number" v-model="price" readonly />
+    <!-- <button @click="setPriceEvent">Enviar</button> -->
   </div>
 </template>
 
@@ -31,13 +32,7 @@ input {
 import axios from "axios";
 
 export default {
-  props: [
-    // "apiGetPriceAsset",
-    // "apiListAssetURL",
-    // "fixedDecimal",
-    // "placeholderMessage",
-    "selected",
-  ],
+  props: ["selected"],
   data() {
     return {
       apiGetPriceAsset: "",
@@ -71,6 +66,7 @@ export default {
               this.fixedDecimal
             ))
         );
+      this.setPriceEvent();
     },
     updateData() {
       if (this.selected === "Acciones") {
@@ -84,6 +80,9 @@ export default {
         this.placeholderMessage = "Nombre de la criptomoneda";
       }
       this.apiGetPriceAsset = "/assetPrice";
+    },
+    setPriceEvent() {
+      this.$emit("setprice-event", this.price);
     },
   },
   watch: {
