@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\AssetNameSymbol;
 use App\Operation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DataFromYahooController;
+use App\User;
+use Users;
 
 class OperationController extends Controller
 {
@@ -27,11 +28,12 @@ class OperationController extends Controller
     {
         $operation = new Operation();
         $operation->id_user = Auth::id();
-        $companySymbol = $request->companySymbol;
-        $operation->id_asset =  AssetNameSymbol::where('asset_symbol', $companySymbol)->get('id')->first()->id;
-        $operation->purchase_price = $request->price;
+        $operation->id_asset = $request->id_asset;
+        $operation->purchase_price = $request->purchase_price;
         $operation->quantity = $request->quantity;
         $operation->purchase_date = now();
+        $amount = -$request->purchase_price * $request->quantity;
+        UsersController::updateMoneyAccount($amount);
         $operation->save();
     }
 
@@ -82,5 +84,65 @@ class OperationController extends Controller
         }
 
         return $array;
+    }
+
+    public function sellAsset(Request $request)
+    {
+        Operation::where('id', $request->input('id'))->update(array('selling_date' => now()));
+        Operation::where('id', $request->input('id'))->update(array('selling_price' => $request->input('selling_price')));
+        $amount = -$request->input('quantity') * $request->input('selling_price');
+        UsersController::updateMoneyAccount($amount);
+    }
+
+    public function getActualPriceOfAssets()
+    {
+        $listOfAssets = $this->sellAssetList();
+        $listOfDistinctAssets = [];
+        foreach ($listOfAssets as $asset) {
+            if (count($listOfDistinctAssets) == 0) {
+                $listOfDistinctAssets[] = $asset->asset_symbol;
+            } else if (!in_array($asset->asset_symbol, $listOfDistinctAssets)) {
+                $listOfDistinctAssets[] = $asset->asset_symbol;
+            }
+        }
+        $assetSymbolPriceList = [];
+
+        foreach ($listOfDistinctAssets as $assetSymbol) {
+            $price = DataFromYahooController::getPriceAsset($assetSymbol)->getData()->price;
+            $assetSymbolPriceList[] = array('asset_symbol' => $assetSymbol, 'selling_price' => $price);
+        }
+        return $assetSymbolPriceList;
+    }
+
+    public function sellAssetList()
+    {
+        return DB::table('operations')
+            ->join('asset_name_symbol', 'asset_name_symbol.id', '=', 'operations.id_asset')
+            ->where('id_user', Auth::id())
+            ->whereNull('selling_price')
+            ->select('asset_symbol', 'asset_name', 'asset_type', 'purchase_price', 'purchase_date', 'quantity', 'selling_price', 'selling_date', 'operations.id')
+            ->get();
+    }
+
+
+    public function sellAssetListSellingPrice()
+    {
+        $listOfAssetsUser = $this->sellAssetList();
+        $listOfAssetsSellingPrice = $this->getActualPriceOfAssets();
+        $result = [];
+
+        foreach ($listOfAssetsUser as $assetRegister) {
+            foreach ($listOfAssetsSellingPrice as $assetSellingPrice) {
+                if ($assetRegister->asset_symbol == $assetSellingPrice['asset_symbol']) {
+                    $result[] = array(
+                        'id' => $assetRegister->id, 'asset_symbol' => $assetRegister->asset_symbol, 'selling_price' => $assetSellingPrice['selling_price'],
+                        'asset_name' => $assetRegister->asset_name, 'asset_type' => $assetRegister->asset_type,
+                        'purchase_price' => $assetRegister->purchase_price, 'purchase_date' => $assetRegister->purchase_date,
+                        'quantity' => $assetRegister->quantity,
+                    );
+                }
+            }
+        }
+        return json_encode($result);
     }
 }

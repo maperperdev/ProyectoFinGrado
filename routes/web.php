@@ -43,7 +43,13 @@ Route::get('/buyStocks', 'OperationController@create');
 
 Route::post('/makeChart', 'DataFromYahooController@getDataForChart');
 
-Route::post('/buyStocks', 'OperationController@store');
+Route::post('/buyAsset', 'OperationController@store');
+
+Route::post('/sellAsset', 'OperationController@sellAsset');
+
+Route::get('/unsoldAssetList', 'OperationController@sellAssetList');
+
+Route::get('/unsoldAssetList2', 'OperationController@sellAssetListSellingPrice');
 
 Route::post('/getAccountValue', 'OperationController@getAccountValue');
 

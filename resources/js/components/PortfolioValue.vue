@@ -2,7 +2,7 @@
   <div>
     <!-- <button @click="showValueAccount">showValueAccount</button> -->
     <p>Esto es mi portfolio value</p>
-    <button @click="getAccount">Ver porfolio</button>
+    <button @click="getAccount">Ver portfolio</button>
 
     <div v-show="account.length > 0" class="w-full py-8 md:px-32">
       <div class="overflow-hidden border-b border-gray-200 rounded shadow">
@@ -96,7 +96,8 @@ export default {
         .post("/getAccountValue", {
           id_user: this.idUser,
         })
-        .then((promiseResponse) => (this.account = promiseResponse.data));
+        .then((promiseResponse) => (this.account = promiseResponse.data))
+        .finally(() => console.log("cargado"));
     },
     getIdUser() {
       this.idUser = axios

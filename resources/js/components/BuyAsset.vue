@@ -7,6 +7,7 @@
       <option>Criptomonedas</option>
     </select>
     <br />
+    <br />
     <input
       type="text"
       list="assetSymbolList"
@@ -19,15 +20,31 @@
       @change="getPrice()"
     />
     <br />
+    <br />
     <datalist id="assetSymbolList">
       <option v-for="asset of listOfAssets" :key="asset.asset_symbol">
         {{ asset.asset_name }}
       </option>
     </datalist>
-    <br />
     <input id="price" type="number" v-model="price" readonly />
     <br />
-    <input v-show="selected" type="number" v-model="quantity" min="0" />
+    <br />
+    <input
+      v-show="selected"
+      type="number"
+      v-model="quantity"
+      min="0"
+      placeholder="Introduzca la cantidad"
+    />
+    <br />
+    <br />
+    <button
+      v-show="selected"
+      @click="buyAsset()"
+      class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+    >
+      Comprar
+    </button>
   </div>
 </template>
 
@@ -46,8 +63,8 @@ export default {
   data() {
     return {
       selected: "",
-      quantity: Number,
-      price: Number,
+      quantity: null,
+      price: null,
       apiGetPriceAsset: "",
       apiListAssetURL: "",
       fixedDecimal: "",
@@ -57,6 +74,22 @@ export default {
     };
   },
   methods: {
+    buyAsset() {
+      const buyObject = {
+        id_asset: this.getIdAsset(),
+        purchase_price: this.price,
+        quantity: this.quantity,
+      };
+      console.log(buyObject);
+      axios.post("/buyAsset", buyObject);
+    },
+    getIdAsset() {
+      for (let asset of this.listOfAssets) {
+        if (asset.asset_name === this.assetName) {
+          return asset.id;
+        }
+      }
+    },
     getListAsset() {
       axios
         .get(this.apiListAssetURL)
@@ -78,7 +111,6 @@ export default {
               this.fixedDecimal
             ))
         );
-      this.setPriceEvent();
     },
     updateData() {
       if (this.selected === "Acciones") {

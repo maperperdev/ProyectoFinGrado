@@ -1,5 +1,10 @@
 <template>
   <div>
+    <select v-model="selected">
+      <option disabled value="">Seleccione un elemento</option>
+      <option>Acciones</option>
+      <option>Criptomonedas</option>
+    </select>
     <input
       type="text"
       list="assetSymbolList"
@@ -7,16 +12,13 @@
       id="companySymbol"
       :placeholder="placeholderMessage"
       v-model="assetName"
-      @change="getPrice()"
+      @change="emmitAssetSymbol"
     />
     <datalist id="assetSymbolList">
       <option v-for="asset of listOfAssets" :key="asset.asset_symbol">
         {{ asset.asset_name }}
       </option>
     </datalist>
-    <p>Precio</p>
-    <input id="price" type="number" v-model="price" readonly />
-    <!-- <button @click="setPriceEvent">Enviar</button> -->
   </div>
 </template>
 
@@ -32,16 +34,17 @@ input {
 import axios from "axios";
 
 export default {
-  props: ["selected"],
+  // props: ["selected"],
   data() {
     return {
+      selected: "",
       apiGetPriceAsset: "",
       apiListAssetURL: "",
       fixedDecimal: "",
       placeholderMessage: "",
       assetName: "",
+      assetSymbol: "",
       listOfAssets: [],
-      price: "",
     };
   },
   methods: {
@@ -49,24 +52,6 @@ export default {
       axios
         .get(this.apiListAssetURL)
         .then((promiseResponse) => (this.listOfAssets = promiseResponse.data));
-    },
-    getAssetSymbolFromAssetName() {
-      return this.listOfAssets.filter(
-        (elem) => elem.asset_name === this.assetName
-      )[0].asset_symbol;
-    },
-    getPrice() {
-      axios
-        .post(this.apiGetPriceAsset, {
-          assetSymbol: this.getAssetSymbolFromAssetName(),
-        })
-        .then(
-          (promiseResponse) =>
-            (this.price = parseFloat(promiseResponse.data.price).toFixed(
-              this.fixedDecimal
-            ))
-        );
-      this.setPriceEvent();
     },
     updateData() {
       if (this.selected === "Acciones") {
@@ -81,8 +66,18 @@ export default {
       }
       this.apiGetPriceAsset = "/assetPrice";
     },
-    setPriceEvent() {
-      this.$emit("setprice-event", this.price);
+    getAssetSymbol() {
+      if (this.listOfAssets.length > 0) {
+        for (let asset of this.listOfAssets) {
+          if (asset.asset_name === this.assetName) {
+            this.assetSymbol = asset.asset_symbol;
+          }
+        }
+      }
+    },
+    emmitAssetSymbol() {
+      this.getAssetSymbol();
+      this.$emit("change", this.assetSymbol);
     },
   },
   watch: {
