@@ -11,7 +11,6 @@ import SellAsset from './components/SellAsset';
 import PortfolioValue from './components/PortfolioValue';
 import Graphics from './components/Graphics';
 import Account from './components/Account';
-import GraphicsForm from './components/GraphicsForm';
 
 Vue.use(VueRouter);
 
@@ -45,6 +44,5 @@ const app = new Vue({
         'porfolio-value': PortfolioValue,
         'graphics': Graphics,
         'account': Account,
-        'graphics-form': GraphicsForm
     }
 });
