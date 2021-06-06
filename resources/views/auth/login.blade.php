@@ -7,7 +7,6 @@
             <svg style="display: block; margin: auto;" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 p-2 text-white bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
-            <!-- <img class="w-auto h-12 mx-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow"> -->
             <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
                 Sign in to your account
             </h2>
@@ -47,7 +46,7 @@
                     <div class="flex items-center">
                         <input id="remember_me" name="remember_me" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" {{ old('remember') ? 'checked' : '' }}>
                         <label for="remember_me" class="block ml-2 text-sm text-gray-900">
-                            {{ __('Remember Me') }}
+                            {{ __('Recordarme') }}
                         </label>
                     </div>
 
@@ -55,7 +54,7 @@
 
                         @if (Route::has('password.request'))
                         <a class="font-medium text-indigo-600 hover:text-indigo-500k" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
+                            {{ __('¿Olvidaste tu contraseña?') }}
                         </a>
                         @endif
                     </div>

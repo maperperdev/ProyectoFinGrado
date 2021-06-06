@@ -1,3 +1,4 @@
+use portfolio
 insert into asset_name_symbol values (1, 'NIO', 'NIO Limited', '1');
 insert into asset_name_symbol values (2, 'AAPL', 'Apple Inc.', '1');
 insert into asset_name_symbol values (3, 'VIAC', 'ViacomCBS Inc.', '1');
@@ -544,4 +545,3 @@ insert into asset_name_symbol values (543, 'LRG-USD', 'LargoCoin USD', '2');
 insert into asset_name_symbol values (544, 'BRC-USD', 'BaerChain USD', '2');
 insert into asset_name_symbol values (545, 'YEP-USD', 'YEPCOIN USD', '2');
 insert into asset_name_symbol values (546, 'VBK-USD', 'VeriBlock USD', '2');
-insert into asset_name_symbol values (547, 'YEP-USD', 'YEPCOIN USD', '2');

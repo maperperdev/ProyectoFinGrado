@@ -58,14 +58,19 @@ export default {
       }
     },
     sellAsset(id, index) {
-      console.log(id);
       let myObj = {
         id: id,
         quantity: this.listOfUnsoldAsset[index].quantity,
         selling_price: this.listOfUnsoldAsset[index].selling_price,
+        asset_name: this.listOfUnsoldAsset[index].asset_name,
       };
-      console.log(myObj);
-      axios.post("/sellAsset", myObj);
+      axios
+        .post("/sellAsset", myObj)
+        .finally(
+          alert(
+            `Ha vendido ${myObj.quantity} del producto ${myObj.assetName} por un precio de ${myObj.selling_price}`
+          )
+        );
       this.listOfUnsoldAsset.splice(index, 1);
     },
   },

@@ -22,56 +22,65 @@
 </head>
 
 <body>
-    <nav class="bg-white shadow-sm navbar navbar-expand-md navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="container">
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="mr-auto navbar-nav">
+        <nav class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-800">
 
-                </ul>
 
-                <ul class="ml-auto navbar-nav">
-                    @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                    @endif
-                    @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
+            <div class="flex items-center flex-shrink-0 mr-6 text-white">
+                <div class="flex items-center flex-shrink-0 w-1/5 mr-6 text-white">
+                    <a class="text-white no-underline hover:text-white hover:no-underline" href="{{ url('/') }}">
+                        <span class="pl-2 text-2xl"><i class="em em-grinning"></i>{{ config('app.name', 'Laravel') }}</span>
+                    </a>
+                </div>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                <div class="flex-grow hidden w-4/5 pt-6 lg:flex lg:items-center lg:w-auto lg:pt-0" id="nav-content">
+                    <ul class="items-center justify-end flex-1 list-reset lg:flex">
+
+                        @guest
+                        <li class="mr-3">
+                            <a class="inline-block px-4 py-2 text-white no-underline" href="{{ route('login') }}">Login</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="mr-3">
+                            <a class="inline-block px-4 py-2 text-white no-underline" href="{{ route('register') }}">Registrarse</a>
+                        </li>
+                        @endif
+                        @else
+                        <li class="mr-3">
+                            <a id="navbarDropdown" class="inline-block px-4 py-2 text-white no-underline" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                        </li>
+                        <li class="mr-3" aria-labelledby="navbarDropdown">
+                            <a class="inline-block px-4 py-2 text-white no-underline" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
+                        </li>
+                        <li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                        </div>
-                    </li>
-                    @endguest
-                </ul>
+                        </li>
+                        @endguest
+                    </ul>
+                </div>
             </div>
-    </nav>
+        </nav>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
+        <main class="py-4">
+            @yield('content')
+        </main>
+
     </div>
+    <script>
+        document.getElementById('nav-toggle').onclick = function() {
+            document.getElementById("nav-content").classList.toggle("hidden");
+        }
+    </script>
+
 </body>
 
 </html>

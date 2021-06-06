@@ -81,7 +81,19 @@ export default {
         quantity: this.quantity,
       };
       console.log(buyObject);
-      axios.post("/buyAsset", buyObject);
+      axios
+        .post("/buyAsset", buyObject)
+        .finally(
+          alert(
+            `Ha comprado ${buyObject.quantity} del producto ${this.assetName} por un precio de ${this.price}`
+          )
+        );
+      this.clearForm();
+    },
+    clearForm() {
+      this.assetName = "";
+      this.price = "";
+      this.quantity = "";
     },
     getIdAsset() {
       for (let asset of this.listOfAssets) {
