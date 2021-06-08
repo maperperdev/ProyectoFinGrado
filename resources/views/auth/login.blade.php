@@ -8,7 +8,7 @@
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
             <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
-                Sign in to your account
+                Ingrese en su cuenta
             </h2>
         </div>
 
@@ -18,9 +18,8 @@
             <div class="-space-y-px rounded-md shadow-sm">
 
                 <div>
-                    <label for="email" class="sr-only">Email address</label>
 
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Dirección de correo electrónico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -32,7 +31,7 @@
                 <br>
                 <div>
                     <label for="password" class="sr-only">Password</label>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" name="password" required autocomplete="current-password" placeholder="Password">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" name="password" required autocomplete="current-password" placeholder="Contraseña">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -50,14 +49,14 @@
                         </label>
                     </div>
 
-                    <div class="text-sm">
+                    <!-- <div class="text-sm">
 
                         @if (Route::has('password.request'))
                         <a class="font-medium text-indigo-600 hover:text-indigo-500k" href="{{ route('password.request') }}">
-                            {{ __('¿Olvidaste tu contraseña?') }}
+                            {{ __('¿Olvidó su contraseña?') }}
                         </a>
                         @endif
-                    </div>
+                    </div> -->
                 </div>
 
                 <br>
@@ -70,7 +69,7 @@
                                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                             </svg>
                         </span>
-                        Sign in
+                        Acceder
                     </button>
                 </div>
 

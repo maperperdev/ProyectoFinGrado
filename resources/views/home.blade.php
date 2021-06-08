@@ -17,37 +17,20 @@
         </div>
     </div>
 
+
     <div id="app">
-        <div class="container px-5 mx-auto">
-
-            <main class="flex">
-                <aside class="w-1/5">
-                    <ul>
-                        <li>
-                            <router-link to="/home/account">Cuenta</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/home/buy-assets">Comprar</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/home/sell-assets">Vender</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/home/graphics">Gráficas</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/home/porfolio-value">Valor cuenta</router-link>
-                        </li>
-                    </ul>
-                </aside>
-                <div class="flex-1">
-                    <router-view></router-view>
-                </div>
-
-            </main>
-
+        <div class="flex-col w-full md:flex md:flex-row md:min-h-screen">
+            <div class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-64 dark-mode:text-gray-200 dark-mode:bg-gray-800">
+                <nav class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
+                    <router-link to="/home/porfolio-value" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Cuenta</router-link>
+                    <router-link to="/home/buy-assets" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Comprar</router-link>
+                    <router-link to="/home/sell-assets" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Vender</router-link>
+                    <router-link to="/home/graphics" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Gráficas</router-link>
+                    <router-link to="/home/delete-account" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Borrar cuenta</router-link>
+                </nav>
+            </div>
+            <router-view></router-view>
         </div>
     </div>
-
 </div>
 @endsection

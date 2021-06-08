@@ -68,7 +68,6 @@ export default {
       }
 
       let data = this.dataArray.map((elem) => parseData(elem));
-      console.log(data);
 
       var x = d3
         .scaleTime()

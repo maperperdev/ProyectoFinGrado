@@ -39,7 +39,7 @@
 
                         @guest
                         <li class="mr-3">
-                            <a class="inline-block px-4 py-2 text-white no-underline" href="{{ route('login') }}">Login</a>
+                            <a class="inline-block px-4 py-2 text-white no-underline" href="{{ route('login') }}">Acceder</a>
                         </li>
                         @if (Route::has('register'))
                         <li class="mr-3">
@@ -48,7 +48,7 @@
                         @endif
                         @else
                         <li class="mr-3">
-                            <a id="navbarDropdown" class="inline-block px-4 py-2 text-white no-underline" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="inline-block px-4 py-2 text-white no-underline" href="{{ route('home') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 

@@ -11,8 +11,14 @@ import SellAsset from './components/SellAsset';
 import PortfolioValue from './components/PortfolioValue';
 import Graphics from './components/Graphics';
 import Account from './components/Account';
+import DeleteAccount from './components/DeleteAccount';
+import DeleteAccountModal from './components/DeleteAccountModal';
+import Modal from "@burhanahmeed/vue-modal-2";
+
 
 Vue.use(VueRouter);
+Vue.use(Modal);
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -44,5 +50,7 @@ const app = new Vue({
         'porfolio-value': PortfolioValue,
         'graphics': Graphics,
         'account': Account,
+        'delete-account': DeleteAccount,
+        'delete-account-modal': DeleteAccountModal,
     }
 });

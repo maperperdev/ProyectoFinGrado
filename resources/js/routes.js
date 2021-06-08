@@ -4,6 +4,7 @@ import SellAsset from './components/SellAsset';
 import PortfolioValue from './components/PortfolioValue';
 import Graphics from './components/Graphics';
 import Account from './components/Account';
+import DeleteAccount from './components/DeleteAccount';
 
 export default {
     mode: 'history',
@@ -31,6 +32,10 @@ export default {
         {
             path: '/home/account',
             component: Account,
+        },
+        {
+            path: '/home/delete-account',
+            component: DeleteAccount,
         },
     ]
 };

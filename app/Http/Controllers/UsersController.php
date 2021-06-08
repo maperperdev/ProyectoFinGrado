@@ -31,4 +31,9 @@ class UsersController extends Controller
             DB::table('users')->where('id', Auth::id())->decrement('money_account', $amount);
         }
     }
+
+    public function getMoneyAccount()
+    {
+        return DB::table('users')->where('id', Auth::id())->get('money_account');
+    }
 }

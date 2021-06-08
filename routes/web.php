@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,8 +56,14 @@ Route::post('/getAccountValue', 'OperationController@getAccountValue');
 
 Route::get('/user/id', 'UsersController@getUserId');
 
+Route::get('/user/money-account', 'UsersController@getMoneyAccount')->middleware('auth');
+
 Route::get('/home/{any?}', function () {
-    return view('home');
+    if ((Auth::id() !== null)) {
+        return view('home');
+    } else {
+        return view('auth/login');
+    }
 });
 
 Route::get('/{any?}', function () {
