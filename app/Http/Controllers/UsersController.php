@@ -21,6 +21,11 @@ class UsersController extends Controller
         return Auth::id();
     }
 
+    public function addMoneyToAccount(Request $request)
+    {
+        $this->updateMoneyAccount($request->input('money'));
+    }
+
     public static function updateMoneyAccount($amount)
     {
         // $amount = $request->input('amount');
@@ -34,6 +39,7 @@ class UsersController extends Controller
 
     public function getMoneyAccount()
     {
-        return DB::table('users')->where('id', Auth::id())->get('money_account');
+        $money = DB::table('users')->where('id', Auth::id())->get('money_account');
+        return $money[0]->money_account;
     }
 }

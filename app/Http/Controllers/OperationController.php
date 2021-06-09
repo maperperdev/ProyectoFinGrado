@@ -90,7 +90,7 @@ class OperationController extends Controller
     {
         Operation::where('id', $request->input('id'))->update(array('selling_date' => now()));
         Operation::where('id', $request->input('id'))->update(array('selling_price' => $request->input('selling_price')));
-        $amount = -$request->input('quantity') * $request->input('selling_price');
+        $amount = $request->input('quantity') * $request->input('selling_price');
         UsersController::updateMoneyAccount($amount);
     }
 

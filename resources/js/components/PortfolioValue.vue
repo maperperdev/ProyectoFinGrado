@@ -9,7 +9,14 @@
       placeholder="Introduzca la cantidad que vaya a ingresar"
       min="0"
     />
-    <input readonly :value="moneyAccount" type="text" disabled />
+    <input readonly :value="moneyAccountValue" type="text" disabled />
+
+    <button
+      @click="addFunds"
+      class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
+    >
+      Agregar fondos
+    </button>
     <button
       @click="
         getAccount();
@@ -149,6 +156,12 @@ export default {
     };
   },
   methods: {
+    addFunds() {
+      axios
+        .post("/user/add-money", { money: this.addedMoney })
+        .then((this.moneyAccount = +this.addedMoney + this.moneyAccount))
+        .finally((this.addedMoney = 0));
+    },
     getAccount() {
       axios
         .post("/getAccountValue", {
@@ -164,7 +177,7 @@ export default {
     getMoneyAccount() {
       axios
         .get("/user/money-account")
-        .then((response) => response.data)
+        .then((response) => (this.moneyAccount = response.data))
         .finally((data) => console.log(data));
     },
     setPages() {

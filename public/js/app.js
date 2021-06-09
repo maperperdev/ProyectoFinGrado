@@ -3203,6 +3203,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ListOfAssets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListOfAssets */ "./resources/js/components/ListOfAssets.vue");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -3231,18 +3247,70 @@ __webpack_require__.r(__webpack_exports__);
       startDate: "",
       endDate: "",
       dataArray: [],
-      assetSymbol: ""
+      assetSymbol: "",
+      error: "",
+      isCorrect: false
     };
   },
   components: {
     ListOfAssets: _ListOfAssets__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   methods: {
+    formatDate: function formatDate(dateString) {
+      var year, month, day;
+
+      var _dateString$split$map = dateString.split("-").map(function (elem) {
+        return +elem;
+      });
+
+      var _dateString$split$map2 = _slicedToArray(_dateString$split$map, 3);
+
+      year = _dateString$split$map2[0];
+      month = _dateString$split$map2[1];
+      day = _dateString$split$map2[2];
+      return new Date(year, month - 1, day);
+    },
     getAssetSymbolFromChild: function getAssetSymbolFromChild(info) {
       this.assetSymbol = info;
     },
+    validateRequest: function validateRequest() {
+      this.error = "";
+
+      if (this.assetSymbol == "") {
+        this.error += "Debe elegir un producto para ver su gráfica";
+        console.log(this.error);
+        return;
+      }
+
+      if (this.startDate == "") {
+        this.error += "Debe colocar una fecha de inicio";
+        console.log(this.error);
+        return;
+      }
+
+      if (this.endDate == "") {
+        this.error += "Debe colocar una fecha de fin";
+        console.log(this.error);
+        return;
+      }
+
+      var startDate = this.formatDate(this.startDate);
+      var endDate = this.formatDate(this.endDate);
+
+      if (startDate.getTime() > endDate.getTime()) {
+        this.error += "La fecha de inicio es más antigua que la fecha final.";
+        console.log(this.error);
+        return;
+      }
+    },
     getDataForPlot: function getDataForPlot() {
       var _this = this;
+
+      this.validateRequest();
+
+      if (this.error.length > 0) {
+        return;
+      }
 
       var myObj = {
         assetSymbol: this.assetSymbol,
@@ -3256,6 +3324,20 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     drawGraphics: function drawGraphics() {
+      // const months = {
+      //   0: "Jan",
+      //   1: "Feb",
+      //   2: "Mar",
+      //   3: "Apr",
+      //   4: "May",
+      //   5: "Jun",
+      //   6: "Jul",
+      //   7: "Aug",
+      //   8: "Sep",
+      //   9: "Oct",
+      //   10: "Nov",
+      //   11: "Dec",
+      // };
       var margin = {
         top: 10,
         right: 30,
@@ -3278,10 +3360,45 @@ __webpack_require__.r(__webpack_exports__);
 
       var data = this.dataArray.map(function (elem) {
         return parseData(elem);
-      });
+      }); /////////
+      // let dates = this.dataArray.map((elem) => elem.Date);
+      // var xScale = d3
+      //   .scaleLinear()
+      //   .domain([-1, dates.length])
+      //   .range([0, width]);
+      // var xDateScale = d3.scaleQuantize().domain([0, dates.length]).range(dates)
+      // let xBand = d3
+      //   .scaleBand()
+      //   .domain(d3.range(-1, dates.length))
+      //   .range([0, w])
+      //   .padding(0.3)
+      // var x = d3
+      //   .axisBottom()
+      //   .scale(xScale)
+      //   .tickFormat(function (d) {
+      //     d = dates[d];
+      //     hours = d.getHours();
+      //     minutes = (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
+      //     amPM = hours < 13 ? "am" : "pm";
+      //     return (
+      //       hours +
+      //       ":" +
+      //       minutes +
+      //       amPM +
+      //       " " +
+      //       d.getDate() +
+      //       " " +
+      //       months[d.getMonth()] +
+      //       " " +
+      //       d.getFullYear()
+      //     );
+      //   });
+      //////////////
+
       var x = d3__WEBPACK_IMPORTED_MODULE_0__["scaleTime"]().domain(d3__WEBPACK_IMPORTED_MODULE_0__["extent"](data, function (d) {
         return d.Date;
-      })).range([0, width]);
+      })).range([0, width]); //////////////
+
       svg.append("g").attr("transform", "translate(0," + height + ")").call(d3__WEBPACK_IMPORTED_MODULE_0__["axisBottom"](x));
       var y = d3__WEBPACK_IMPORTED_MODULE_0__["scaleLinear"]().domain([0, d3__WEBPACK_IMPORTED_MODULE_0__["max"](data, function (d) {
         return +d.Open;
@@ -3291,7 +3408,10 @@ __webpack_require__.r(__webpack_exports__);
         return x(d.Date);
       }).y(function (d) {
         return y(d.Open);
-      }));
+      })); //
+
+      svg.transition().duration(4000).delay(4000).ease(d3__WEBPACK_IMPORTED_MODULE_0__["easeElasticOut"]) // Indicamos la función de transición flexible
+      .style("width", "200px");
     }
   }
 });
@@ -3640,6 +3760,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3654,6 +3781,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    addFunds: function addFunds() {
+      axios.post("/user/add-money", {
+        money: this.addedMoney
+      }).then(this.moneyAccount = +this.addedMoney + this.moneyAccount)["finally"](this.addedMoney = 0);
+    },
     getAccount: function getAccount() {
       var _this = this;
 
@@ -3671,8 +3803,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getMoneyAccount: function getMoneyAccount() {
+      var _this3 = this;
+
       axios.get("/user/money-account").then(function (response) {
-        return response.data;
+        return _this3.moneyAccount = response.data;
       })["finally"](function (data) {
         return console.log(data);
       });
@@ -3731,6 +3865,25 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54225,7 +54378,13 @@ var render = function() {
               _vm.endDate = $event.target.value
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("div", { staticClass: "error" }, [
+          _vm._v("\n      " + _vm._s(_vm.error) + "\n    ")
+        ])
       ],
       1
     ),
@@ -54234,7 +54393,7 @@ var render = function() {
       "button",
       {
         staticClass:
-          "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent",
+          "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
         on: { click: _vm.getDataForPlot }
       },
       [_vm._v("\n    Ver gráfica\n  ")]
@@ -54502,8 +54661,18 @@ var render = function() {
     _vm._v(" "),
     _c("input", {
       attrs: { readonly: "", type: "text", disabled: "" },
-      domProps: { value: _vm.moneyAccount }
+      domProps: { value: _vm.moneyAccountValue }
     }),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+        on: { click: _vm.addFunds }
+      },
+      [_vm._v("\n    Agregar fondos\n  ")]
+    ),
     _vm._v(" "),
     _c(
       "button",
@@ -54789,65 +54958,133 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c(
-      "table",
+      "div",
       {
-        staticClass: "table-hover",
-        on: {
-          selectionChanged: function($event) {
-            _vm.selectedRows = $event
-          }
-        }
+        staticClass: "overflow-hidden border-b border-gray-200 rounded shadow"
       },
       [
-        _c("thead", { attrs: { slot: "head" }, slot: "head" }, [
-          _c("th", [_vm._v("ID")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Asset Name")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Purchase Price")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Purchase Data")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Quantity")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Selling Price")])
-        ]),
-        _vm._v(" "),
         _c(
-          "tbody",
-          { attrs: { slot: "body" }, slot: "body" },
-          _vm._l(_vm.listOfUnsoldAsset, function(row, index) {
-            return _c("tr", { key: index, attrs: { row: row } }, [
-              _c("td", [_vm._v(_vm._s(row.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(row.asset_name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(row.purchase_price))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(row.purchase_date))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(row.quantity))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(row.selling_price))]),
-              _vm._v(" "),
-              _c("td", [
+          "table",
+          {
+            staticClass: "table-hover",
+            on: {
+              selectionChanged: function($event) {
+                _vm.selectedRows = $event
+              }
+            }
+          },
+          [
+            _c(
+              "thead",
+              {
+                staticClass: "text-white bg-gray-800",
+                attrs: { slot: "head" },
+                slot: "head"
+              },
+              [
                 _c(
-                  "button",
+                  "th",
                   {
                     staticClass:
-                      "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent",
-                    on: {
-                      click: function($event) {
-                        return _vm.sellAsset(row.id, index)
-                      }
-                    }
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                   },
-                  [_vm._v("\n            Vender\n          ")]
+                  [_vm._v("\n          Id\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                  },
+                  [_vm._v("\n          Producto\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                  },
+                  [_vm._v("\n          Precio de compra\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                  },
+                  [_vm._v("\n          Fecha de compra\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                  },
+                  [_vm._v("\n          Cantidad\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                  },
+                  [_vm._v("\n          Precio actual\n        ")]
+                ),
+                _vm._v(" "),
+                _c("th")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              { attrs: { slot: "body" }, slot: "body" },
+              _vm._l(_vm.listOfUnsoldAsset, function(row, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: index,
+                    class: index % 2 == 1 ? "bg-gray-100" : "",
+                    attrs: { row: row }
+                  },
+                  [
+                    _c("td", [_vm._v(_vm._s(row.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(row.asset_name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(row.purchase_price))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(row.purchase_date))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(row.quantity))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(row.selling_price))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+                          on: {
+                            click: function($event) {
+                              return _vm.sellAsset(row.id, index)
+                            }
+                          }
+                        },
+                        [_vm._v("\n              Vender\n            ")]
+                      )
+                    ])
+                  ]
                 )
-              ])
-            ])
-          }),
-          0
+              }),
+              0
+            )
+          ]
         )
       ]
     )

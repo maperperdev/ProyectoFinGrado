@@ -56,6 +56,8 @@ Route::post('/getAccountValue', 'OperationController@getAccountValue');
 
 Route::get('/user/id', 'UsersController@getUserId');
 
+Route::post('/user/add-money', "UsersController@addMoneyToAccount")->middleware('auth');
+
 Route::get('/user/money-account', 'UsersController@getMoneyAccount')->middleware('auth');
 
 Route::get('/home/{any?}', function () {

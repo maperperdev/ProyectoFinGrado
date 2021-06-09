@@ -1,34 +1,53 @@
 <template>
   <div>
-    <table class="table-hover" @selectionChanged="selectedRows = $event">
-      <thead slot="head">
-        <th>ID</th>
-        <th>Asset Name</th>
-        <th>Purchase Price</th>
-        <th>Purchase Data</th>
-        <th>Quantity</th>
-        <th>Selling Price</th>
-      </thead>
-      <tbody slot="body">
-        <tr v-for="(row, index) in listOfUnsoldAsset" :key="index" :row="row">
-          <td>{{ row.id }}</td>
-          <td>{{ row.asset_name }}</td>
-          <td>{{ row.purchase_price }}</td>
-          <td>{{ row.purchase_date }}</td>
-          <td>{{ row.quantity }}</td>
-          <td>{{ row.selling_price }}</td>
-          <td>
-            <button
-              @click="sellAsset(row.id, index)"
-              class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent"
-            >
-              Vender
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div class="overflow-hidden border-b border-gray-200 rounded shadow">
+      <table class="table-hover" @selectionChanged="selectedRows = $event">
+        <thead class="text-white bg-gray-800" slot="head">
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Id
+          </th>
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Producto
+          </th>
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Precio de compra
+          </th>
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Fecha de compra
+          </th>
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Cantidad
+          </th>
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Precio actual
+          </th>
+          <th></th>
+        </thead>
+        <tbody slot="body">
+          <tr
+            v-for="(row, index) in listOfUnsoldAsset"
+            :key="index"
+            :row="row"
+            :class="index % 2 == 1 ? 'bg-gray-100' : ''"
+          >
+            <td>{{ row.id }}</td>
+            <td>{{ row.asset_name }}</td>
+            <td>{{ row.purchase_price }}</td>
+            <td>{{ row.purchase_date }}</td>
+            <td>{{ row.quantity }}</td>
+            <td>{{ row.selling_price }}</td>
+            <td>
+              <button
+                @click="sellAsset(row.id, index)"
+                class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
+              >
+                Vender
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!-- <strong>Selected:</strong>
     <div v-if="selectedRows.length === 0" class="text-muted">
       No Rows Selected
