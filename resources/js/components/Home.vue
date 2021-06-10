@@ -1,7 +1,16 @@
 <template>
-  <p>Esto es mi home</p>
+  <div class="container">
+    <p>En construcción</p>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      moneyAccount: 0,
+    };
+  },
+  methods: {},
+};
 </script>

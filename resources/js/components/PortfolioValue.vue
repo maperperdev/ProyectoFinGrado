@@ -1,15 +1,15 @@
 <template>
   <div>
-    <p>Esto es mi portfolio value Test</p>
+    <h2 class="font-semibold text-gray-600">Portfolio</h2>
     <input
       type="number"
       v-model="addedMoney"
       name="moneyAccount"
       id=""
+      style="width: 30rem"
       placeholder="Introduzca la cantidad que vaya a ingresar"
       min="0"
     />
-    <input readonly :value="moneyAccountValue" type="text" disabled />
 
     <button
       @click="addFunds"
@@ -17,7 +17,18 @@
     >
       Agregar fondos
     </button>
+    <input
+      readonly
+      :value="moneyAccountValue"
+      type="text"
+      disabled
+      class="flex flex-row-reverse border-gray-500 border-solid"
+    />
+
+    <hr />
+    <br />
     <button
+      class="px-4 py-2 font-semibold text-center text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
       @click="
         getAccount();
         visible = false;
@@ -101,36 +112,28 @@
           </tbody>
         </table>
 
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <button
-                type="button"
-                class="page-link"
-                v-if="page != 1"
-                @click="page--"
-              >
+        <nav aria-label="Page navigation example" class="block">
+          <ul class="list-none rounded">
+            <li class="inline-block">
+              <button type="button" v-if="page != 1" @click="page--">
                 Atrás
               </button>
             </li>
-            <li class="page-item">
+            <li
+              class="inline-block"
+              v-for="pageNumber in pages.slice(page - 1, page + 5)"
+              :key="pageNumber"
+            >
               <button
                 type="button"
-                class="page-link"
-                v-for="pageNumber in pages.slice(page - 1, page + 5)"
-                :key="pageNumber"
+                class="relative flex items-center justify-center w-8 h-8 p-0 mx-1 text-xs font-semibold leading-tight text-teal-500 bg-white border border-teal-500 border-solid rounded-full  first:ml-0"
                 @click="page = pageNumber"
               >
                 {{ pageNumber }}
               </button>
             </li>
-            <li class="page-item">
-              <button
-                type="button"
-                @click="page++"
-                v-if="page < pages.length"
-                class="page-link"
-              >
+            <li class="inline-block">
+              <button type="button" @click="page++" v-if="page < pages.length">
                 Siguiente
               </button>
             </li>
@@ -149,7 +152,7 @@ export default {
       moneyAccount: 0,
       page: 1,
       perPage: 4,
-      addedMoney: 0,
+      addedMoney: null,
       account: [],
       pages: [],
       visible: true,
@@ -214,16 +217,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.pagination {
-  text-align: center;
-}
-.page-item {
-  padding: 1 rem;
-}
-button {
-  background-color: deepskyblue;
-  color: white;
-}
-</style>
