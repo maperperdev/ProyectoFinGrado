@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Portfolio Digital</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -22,19 +22,18 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container w-full">
 
-        <nav class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-800">
+        <nav class="fixed top-0 flex flex-wrap items-center justify-between w-full p-6 bg-gray-800">
 
+            <div class="flex items-center flex-shrink-0 w-1/5 mr-6 text-white">
+                <a class="text-white no-underline hover:text-white hover:no-underline" href="{{ url('/') }}">
+                    <span class="pl-2 text-2xl"><i class="em em-grinning"></i>Portfolio</span>
+                </a>
+            </div>
+            <button id="nav-toogle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-content">
 
-            <div class="flex items-center flex-shrink-0 mr-6 text-white">
-                <div class="flex items-center flex-shrink-0 w-1/5 mr-6 text-white">
-                    <a class="text-white no-underline hover:text-white hover:no-underline" href="{{ url('/') }}">
-                        <span class="pl-2 text-2xl"><i class="em em-grinning"></i>{{ config('app.name', 'Laravel') }}</span>
-                    </a>
-                </div>
-
-                <div class="flex-grow hidden w-4/5 pt-6 lg:flex lg:items-center lg:w-auto lg:pt-0" id="nav-content">
+                <div class="flex w-4/5 pt-6 lg:flex-row-reverse lg:w-auto lg:pt-0" id="nav-content">
                     <ul class="items-center justify-end flex-1 list-reset lg:flex">
 
                         @guest
@@ -67,10 +66,9 @@
                         @endguest
                     </ul>
                 </div>
-            </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
 

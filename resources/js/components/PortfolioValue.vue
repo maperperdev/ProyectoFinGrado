@@ -35,33 +35,33 @@
               <th
                 class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
               >
-                Asset Name
+                Nombre producto
               </th>
               <th
                 class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
               >
-                Asset Type
+                Tipo de producto
               </th>
               <th
                 class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
               >
-                Purchase Price
+                Precio de compra
               </th>
               <th
                 class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
               >
-                Purchase Date
+                Fecha de compra
               </th>
               <th
                 class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
               >
-                Quantity
+                Cantidad
               </th>
               <th class="px-4 py-3 text-sm font-semibold text-left uppercase">
-                Selling Price
+                Precio de venta
               </th>
               <th class="px-4 py-3 text-sm font-semibold text-left uppercase">
-                Selling Date
+                Fecha de venta
               </th>
             </tr>
           </thead>

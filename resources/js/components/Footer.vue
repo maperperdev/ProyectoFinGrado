@@ -1,7 +1,7 @@
 <template>
   <footer class="relative w-full pt-8 pb-6 bg-gray-300">
     <div
-      class="absolute top-0 left-0 right-0 bottom-auto w-full -mt-20 overflow-hidden pointer-events-none"
+      class="absolute top-0 left-0 right-0 bottom-auto w-full -mt-20 overflow-hidden pointer-events-none "
       style="height: 80px"
     >
       <svg
@@ -22,68 +22,45 @@
     <div class="container px-4 mx-auto">
       <div class="flex flex-wrap">
         <div class="w-full px-4 lg:w-6/12">
-          <h4 class="text-3xl font-semibold">Let's keep in touch!</h4>
+          <h4 class="text-3xl font-semibold">¡Pruebe nuestra aplicación!</h4>
           <h5 class="mt-0 mb-2 text-lg text-gray-700">
-            Find us on any of these platforms, we respond 1-2 business days.
+            Puede hacer sus inversiones con nuestros patrocinadores.
           </h5>
-          <div class="mt-6">
-            <button
-              class="items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-blue-400 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none"
-              type="button"
-            >
-              <i class="flex fab fa-twitter"></i></button
-            ><button
-              class="items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-blue-600 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none"
-              type="button"
-            >
-              <i class="flex fab fa-facebook-square"></i></button
-            ><button
-              class="items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-pink-400 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none"
-              type="button"
-            >
-              <i class="flex fab fa-dribbble"></i></button
-            ><button
-              class="items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-gray-900 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none"
-              type="button"
-            >
-              <i class="flex fab fa-github"></i>
-            </button>
-          </div>
         </div>
         <div class="w-full px-4 lg:w-6/12">
           <div class="flex flex-wrap mb-6 items-top">
             <div class="w-full px-4 ml-auto lg:w-4/12">
               <span
                 class="block mb-2 text-sm font-semibold text-gray-600 uppercase"
-                >Useful Links</span
+                >Enlaces Útiles</span
               >
               <ul class="list-unstyled">
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://www.creative-tim.com/presentation"
-                    >About Us</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://es.finance.yahoo.com/"
+                    >Yahoo Finance</a
                   >
                 </li>
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://blog.creative-tim.com"
-                    >Blog</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://coinmarketcap.com/"
+                    >CoinMarketCap</a
                   >
                 </li>
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
                     href="https://github.com/maperperdev/ProyectoFinGrado/"
                     >Github</a
                   >
                 </li>
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://www.creative-tim.com/bootstrap-themes/free"
-                    >Free Products</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://www.bolsamania.com/"
+                    >Bolsamanía</a
                   >
                 </li>
               </ul>
@@ -91,35 +68,35 @@
             <div class="w-full px-4 lg:w-4/12">
               <span
                 class="block mb-2 text-sm font-semibold text-gray-600 uppercase"
-                >Other Resources</span
+                >Patrocinadores</span
               >
               <ul class="list-unstyled">
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md"
-                    >MIT License</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://www.ft.com/"
+                    >Financial Times</a
                   >
                 </li>
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://creative-tim.com/terms"
-                    >Terms &amp; Conditions</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://www.degiro.es/"
+                    >DeGiro</a
                   >
                 </li>
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://creative-tim.com/privacy"
-                    >Privacy Policy</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://www.binance.com/"
+                    >Binance</a
                   >
                 </li>
                 <li>
                   <a
-                    class="block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                    href="https://creative-tim.com/contact-us"
-                    >Contact Us</a
+                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
+                    href="https://www.bloomberg.com/"
+                    >Bloomberg</a
                   >
                 </li>
               </ul>

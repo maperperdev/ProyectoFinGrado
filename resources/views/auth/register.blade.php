@@ -31,7 +31,7 @@
                 <div>
                     <label for="email" class="sr-only">Email address</label>
 
-                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Introduzca su correo electrónico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">

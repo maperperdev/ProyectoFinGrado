@@ -3157,29 +3157,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -54046,7 +54023,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "absolute top-0 left-0 right-0 bottom-auto w-full -mt-20 overflow-hidden pointer-events-none",
+            "absolute top-0 left-0 right-0 bottom-auto w-full -mt-20 overflow-hidden pointer-events-none ",
           staticStyle: { height: "80px" }
         },
         [
@@ -54125,51 +54102,12 @@ var staticRenderFns = [
     return _c("div", { staticClass: "flex flex-wrap" }, [
       _c("div", { staticClass: "w-full px-4 lg:w-6/12" }, [
         _c("h4", { staticClass: "text-3xl font-semibold" }, [
-          _vm._v("Let's keep in touch!")
+          _vm._v("¡Pruebe nuestra aplicación!")
         ]),
         _vm._v(" "),
         _c("h5", { staticClass: "mt-0 mb-2 text-lg text-gray-700" }, [
           _vm._v(
-            "\n          Find us on any of these platforms, we respond 1-2 business days.\n        "
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mt-6" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-blue-400 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none",
-              attrs: { type: "button" }
-            },
-            [_c("i", { staticClass: "flex fab fa-twitter" })]
-          ),
-          _c(
-            "button",
-            {
-              staticClass:
-                "items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-blue-600 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none",
-              attrs: { type: "button" }
-            },
-            [_c("i", { staticClass: "flex fab fa-facebook-square" })]
-          ),
-          _c(
-            "button",
-            {
-              staticClass:
-                "items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-pink-400 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none",
-              attrs: { type: "button" }
-            },
-            [_c("i", { staticClass: "flex fab fa-dribbble" })]
-          ),
-          _c(
-            "button",
-            {
-              staticClass:
-                "items-center justify-center w-10 h-10 p-3 mr-2 font-normal text-gray-900 bg-white rounded-full shadow-lg outline-none align-center focus:outline-none",
-              attrs: { type: "button" }
-            },
-            [_c("i", { staticClass: "flex fab fa-github" })]
+            "\n          Puede hacer sus inversiones con nuestros patrocinadores.\n        "
           )
         ])
       ]),
@@ -54183,7 +54121,7 @@ var staticRenderFns = [
                 staticClass:
                   "block mb-2 text-sm font-semibold text-gray-600 uppercase"
               },
-              [_vm._v("Useful Links")]
+              [_vm._v("Enlaces Útiles")]
             ),
             _vm._v(" "),
             _c("ul", { staticClass: "list-unstyled" }, [
@@ -54192,10 +54130,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: { href: "https://www.creative-tim.com/presentation" }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://es.finance.yahoo.com/" }
                   },
-                  [_vm._v("About Us")]
+                  [_vm._v("Yahoo Finance")]
                 )
               ]),
               _vm._v(" "),
@@ -54204,10 +54142,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: { href: "https://blog.creative-tim.com" }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://coinmarketcap.com/" }
                   },
-                  [_vm._v("Blog")]
+                  [_vm._v("CoinMarketCap")]
                 )
               ]),
               _vm._v(" "),
@@ -54216,7 +54154,7 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
                     attrs: {
                       href: "https://github.com/maperperdev/ProyectoFinGrado/"
                     }
@@ -54230,12 +54168,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: {
-                      href: "https://www.creative-tim.com/bootstrap-themes/free"
-                    }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://www.bolsamania.com/" }
                   },
-                  [_vm._v("Free Products")]
+                  [_vm._v("Bolsamanía")]
                 )
               ])
             ])
@@ -54248,7 +54184,7 @@ var staticRenderFns = [
                 staticClass:
                   "block mb-2 text-sm font-semibold text-gray-600 uppercase"
               },
-              [_vm._v("Other Resources")]
+              [_vm._v("Patrocinadores")]
             ),
             _vm._v(" "),
             _c("ul", { staticClass: "list-unstyled" }, [
@@ -54257,13 +54193,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: {
-                      href:
-                        "https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md"
-                    }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://www.ft.com/" }
                   },
-                  [_vm._v("MIT License")]
+                  [_vm._v("Financial Times")]
                 )
               ]),
               _vm._v(" "),
@@ -54272,10 +54205,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: { href: "https://creative-tim.com/terms" }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://www.degiro.es/" }
                   },
-                  [_vm._v("Terms & Conditions")]
+                  [_vm._v("DeGiro")]
                 )
               ]),
               _vm._v(" "),
@@ -54284,10 +54217,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: { href: "https://creative-tim.com/privacy" }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://www.binance.com/" }
                   },
-                  [_vm._v("Privacy Policy")]
+                  [_vm._v("Binance")]
                 )
               ]),
               _vm._v(" "),
@@ -54296,10 +54229,10 @@ var staticRenderFns = [
                   "a",
                   {
                     staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700 hover:text-gray-900",
-                    attrs: { href: "https://creative-tim.com/contact-us" }
+                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                    attrs: { href: "https://www.bloomberg.com/" }
                   },
-                  [_vm._v("Contact Us")]
+                  [_vm._v("Bloomberg")]
                 )
               ])
             ])
@@ -54877,7 +54810,7 @@ var staticRenderFns = [
             staticClass:
               "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
           },
-          [_vm._v("\n              Asset Name\n            ")]
+          [_vm._v("\n              Nombre producto\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -54886,7 +54819,7 @@ var staticRenderFns = [
             staticClass:
               "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
           },
-          [_vm._v("\n              Asset Type\n            ")]
+          [_vm._v("\n              Tipo de producto\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -54895,7 +54828,7 @@ var staticRenderFns = [
             staticClass:
               "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
           },
-          [_vm._v("\n              Purchase Price\n            ")]
+          [_vm._v("\n              Precio de compra\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -54904,7 +54837,7 @@ var staticRenderFns = [
             staticClass:
               "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
           },
-          [_vm._v("\n              Purchase Date\n            ")]
+          [_vm._v("\n              Fecha de compra\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -54913,7 +54846,7 @@ var staticRenderFns = [
             staticClass:
               "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
           },
-          [_vm._v("\n              Quantity\n            ")]
+          [_vm._v("\n              Cantidad\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -54921,7 +54854,7 @@ var staticRenderFns = [
           {
             staticClass: "px-4 py-3 text-sm font-semibold text-left uppercase"
           },
-          [_vm._v("\n              Selling Price\n            ")]
+          [_vm._v("\n              Precio de venta\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -54929,7 +54862,7 @@ var staticRenderFns = [
           {
             staticClass: "px-4 py-3 text-sm font-semibold text-left uppercase"
           },
-          [_vm._v("\n              Selling Date\n            ")]
+          [_vm._v("\n              Fecha de venta\n            ")]
         )
       ])
     ])
