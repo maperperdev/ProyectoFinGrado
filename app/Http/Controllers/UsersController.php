@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\User;
+
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getLoggedUser()
     {
         $user = Auth::user();
@@ -41,5 +50,33 @@ class UsersController extends Controller
     {
         $money = DB::table('users')->where('id', Auth::id())->get('money_account');
         return $money[0]->money_account;
+    }
+
+    public function getUserData()
+    {
+        $user = DB::table('users')->where('id', Auth::id())->get();
+        return response()->json($user[0]);
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $updatedFields = 0;
+
+        if ($request->input('name') !== null) {
+            $user->name = $request->input('name');
+            $updatedFields++;
+        }
+        if ($request->input('email') !== null) {
+            $user->email = $request->input('email');
+            $updatedFields++;
+        }
+        if ($request->input('password') !== null) {
+            $user->password = Hash::make($request->input('password'));
+            $updatedFields++;
+        }
+        if ($updatedFields > 0) {
+            $user->save();
+        }
     }
 }

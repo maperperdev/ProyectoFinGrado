@@ -2850,6 +2850,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2862,7 +2865,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       fixedDecimal: "",
       placeholderMessage: "",
       assetName: "",
-      listOfAssets: []
+      listOfAssets: [],
+      totalOperation: null
     };
   },
   methods: {
@@ -2941,6 +2945,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   computed: {
     selectedReactive: function selectedReactive() {
       return this.selected;
+    },
+    totalOperationComputed: function totalOperationComputed() {
+      if (this.quantity != null) {
+        return this.quantity * this.price;
+      }
     }
   },
   watch: {
@@ -3026,25 +3035,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3456,19 +3446,118 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      moneyAccount: 0
+      oldUser: {
+        name: "",
+        email: "",
+        password: ""
+      },
+      name: "",
+      email: "",
+      password: "",
+      repeatedPassword: "",
+      readonly: true,
+      changeButtonText: true
     };
   },
-  methods: {}
+  methods: {
+    getDataUser: function getDataUser() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/user/data").then(function (response) {
+        _this.name = response.data.name;
+        _this.email = response.data.email;
+        _this.password = response.data.password;
+        _this.oldUser = {
+          name: response.data.name,
+          email: response.data.email,
+          password: response.data.password
+        };
+      });
+    },
+    update: function update() {
+      if (this.readonly) {
+        alert("Tienes que modificar algo");
+        return;
+      }
+
+      var updatedParam = {
+        name: null,
+        email: null,
+        password: null
+      };
+
+      if (this.name != this.oldUser.name) {
+        updatedParam.name = this.name;
+      }
+
+      if (this.email != this.oldUser.email) {
+        updatedParam.email = this.email;
+      }
+
+      if (this.password != this.oldUser.password) {
+        updatedParam.password = this.password;
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/user/update", updatedParam).then(function () {
+        return alert("Usuario cambiado");
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getDataUser();
+  }
 });
 
 /***/ }),
@@ -53867,6 +53956,8 @@ var render = function() {
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.totalOperationComputed))]),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -53978,84 +54069,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "footer",
-    { staticClass: "relative w-full pt-8 pb-6 bg-gray-300" },
-    [
+  return _c("footer", { staticClass: "w-full pt-8 pb-6 bg-gray-300" }, [
+    _c("div", { staticClass: "container px-4 mx-auto" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("hr", { staticClass: "my-6 border-gray-400" }),
+      _vm._v(" "),
       _c(
         "div",
         {
           staticClass:
-            "absolute top-0 left-0 right-0 bottom-auto w-full -mt-20 overflow-hidden pointer-events-none ",
-          staticStyle: { height: "80px" }
+            "flex flex-wrap items-center justify-center md:justify-between"
         },
         [
           _c(
-            "svg",
-            {
-              staticClass: "absolute bottom-0 overflow-hidden",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                preserveAspectRatio: "none",
-                version: "1.1",
-                viewBox: "0 0 2560 100",
-                x: "0",
-                y: "0"
-              }
-            },
+            "div",
+            { staticClass: "w-full px-4 mx-auto text-center md:w-4/12" },
             [
-              _c("polygon", {
-                staticClass: "text-gray-300 fill-current",
-                attrs: { points: "2560 0 2560 100 0 100" }
-              })
+              _c(
+                "div",
+                { staticClass: "py-1 text-sm font-semibold text-gray-600" },
+                [
+                  _vm._v(
+                    "\n          Copyright © " +
+                      _vm._s(_vm.date) +
+                      " Portfolio digital by\n          "
+                  ),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-gray-600 hover:text-gray-900",
+                      attrs: { href: "https://github.com/maperperdev" }
+                    },
+                    [_vm._v("maperperdev")]
+                  ),
+                  _vm._v(".\n        ")
+                ]
+              )
             ]
           )
         ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "container px-4 mx-auto" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("hr", { staticClass: "my-6 border-gray-400" }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "flex flex-wrap items-center justify-center md:justify-between"
-          },
-          [
-            _c(
-              "div",
-              { staticClass: "w-full px-4 mx-auto text-center md:w-4/12" },
-              [
-                _c(
-                  "div",
-                  { staticClass: "py-1 text-sm font-semibold text-gray-600" },
-                  [
-                    _vm._v(
-                      "\n          Copyright © " +
-                        _vm._s(_vm.date) +
-                        " Portfolio digital by\n          "
-                    ),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-gray-600 hover:text-gray-900",
-                        attrs: { href: "https://github.com/maperperdev" }
-                      },
-                      [_vm._v("maperperdev")]
-                    ),
-                    _vm._v(".\n        ")
-                  ]
-                )
-              ]
-            )
-          ]
-        )
-      ])
-    ]
-  )
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -54400,18 +54456,149 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("p", [_vm._v("En construcción")]),
+    _vm._v(" "),
+    _c("table", [
+      _c("tr", [
+        _c("td", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
+              }
+            ],
+            attrs: { type: "text", readonly: _vm.readonly },
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("td", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.email,
+                expression: "email"
+              }
+            ],
+            attrs: { type: "email", readonly: _vm.readonly },
+            domProps: { value: _vm.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.email = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("td", [_vm._v("Contraseña")]),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.password,
+                expression: "password"
+              }
+            ],
+            attrs: { type: "password", readonly: _vm.readonly },
+            domProps: { value: _vm.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.password = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("td", [_vm._v("Repetir contraseña")]),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.repeatedPassword,
+                expression: "repeatedPassword"
+              }
+            ],
+            attrs: { type: "password", readonly: _vm.readonly },
+            domProps: { value: _vm.repeatedPassword },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.repeatedPassword = $event.target.value
+              }
+            }
+          })
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+        on: {
+          click: function($event) {
+            _vm.readonly = !_vm.readonly
+          }
+        }
+      },
+      [
+        _vm._v(
+          "\n    " + _vm._s(_vm.readonly ? "Modificar" : "Cancelar") + "\n  "
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+        on: { click: _vm.update }
+      },
+      [_vm._v("\n    Aceptar\n  ")]
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("p", [_vm._v("En construcción")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

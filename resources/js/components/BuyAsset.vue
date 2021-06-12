@@ -38,6 +38,9 @@
     />
     <br />
     <br />
+
+    <p>{{ totalOperationComputed }}</p>
+
     <button
       v-show="selected"
       @click="buyAsset()"
@@ -71,6 +74,7 @@ export default {
       placeholderMessage: "",
       assetName: "",
       listOfAssets: [],
+      totalOperation: null,
     };
   },
   methods: {
@@ -141,6 +145,11 @@ export default {
   computed: {
     selectedReactive() {
       return this.selected;
+    },
+    totalOperationComputed() {
+      if (this.quantity != null) {
+        return this.quantity * this.price;
+      }
     },
   },
   watch: {

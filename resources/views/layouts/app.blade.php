@@ -24,7 +24,7 @@
 <body>
     <div class="container w-full">
 
-        <nav class="fixed top-0 flex flex-wrap items-center justify-between w-full p-6 bg-gray-800">
+        <nav class="fixed top-0 flex flex-wrap items-center justify-between w-full p-6 overflow-hidden bg-gray-800">
 
             <div class="flex items-center flex-shrink-0 w-1/5 mr-6 text-white">
                 <a class="text-white no-underline hover:text-white hover:no-underline" href="{{ url('/') }}">
@@ -71,6 +71,10 @@
         <main>
             @yield('content')
         </main>
+
+        <footer>
+            @yield('footer')
+        </footer>
 
     </div>
     <script>

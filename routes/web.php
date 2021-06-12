@@ -60,6 +60,10 @@ Route::post('/user/add-money', "UsersController@addMoneyToAccount")->middleware(
 
 Route::get('/user/money-account', 'UsersController@getMoneyAccount')->middleware('auth');
 
+Route::post('/user/update', 'UsersController@updateUser');
+
+Route::get('/user/data', 'UsersController@getUserData');
+
 Route::get('/home/{any?}', function () {
     if ((Auth::id() !== null)) {
         return view('home');
