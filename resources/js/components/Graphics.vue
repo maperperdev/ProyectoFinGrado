@@ -1,13 +1,30 @@
 <template>
   <div>
-    <div>
-      <list-of-assets @change="getAssetSymbolFromChild"></list-of-assets>
-      <br /><input type="date" v-model="startDate" id="startDate" required />
-      <br /><input type="date" v-model="endDate" id="endDate" required />
-      <br />
-      <div class="error">
-        {{ error }}
+    <div class="grid-cols-2">
+      <div class="inline-block">
+        <list-of-assets @change="getAssetSymbolFromChild"></list-of-assets>
+        <br /><input type="date" v-model="startDate" id="startDate" required />
+        <br /><input type="date" v-model="endDate" id="endDate" required />
+        <br />
+        <div class="error">
+          {{ error }}
+        </div>
       </div>
+
+      <table class="inline-block">
+        <tr>
+          <td>Valor máximo:</td>
+          <td>{{ maxValue }}</td>
+        </tr>
+        <tr>
+          <td>Valor mínimo:</td>
+          <td>{{ minValue }}</td>
+        </tr>
+        <tr>
+          <td>Valor medio:</td>
+          <td>{{ meanValue }}</td>
+        </tr>
+      </table>
     </div>
 
     <button
@@ -35,6 +52,9 @@ export default {
       assetSymbol: "",
       error: "",
       isCorrect: false,
+      meanValue: "",
+      maxValue: "",
+      minValue: "",
     };
   },
   components: {
@@ -53,24 +73,20 @@ export default {
       this.error = "";
       if (this.assetSymbol == "") {
         this.error += "Debe elegir un producto para ver su gráfica";
-        console.log(this.error);
         return;
       }
       if (this.startDate == "") {
         this.error += "Debe colocar una fecha de inicio";
-        console.log(this.error);
         return;
       }
       if (this.endDate == "") {
         this.error += "Debe colocar una fecha de fin";
-        console.log(this.error);
         return;
       }
       let startDate = this.formatDate(this.startDate);
       let endDate = this.formatDate(this.endDate);
       if (startDate.getTime() > endDate.getTime()) {
         this.error += "La fecha de inicio es más antigua que la fecha final.";
-        console.log(this.error);
         return;
       }
     },
@@ -87,23 +103,59 @@ export default {
       axios
         .post("/makeChart", myObj)
         .then((response) => (this.dataArray = response.data))
+        .then(console.log(this.dataArray))
         .finally(() => this.drawGraphics());
     },
     drawGraphics() {
-      // const months = {
-      //   0: "Jan",
-      //   1: "Feb",
-      //   2: "Mar",
-      //   3: "Apr",
-      //   4: "May",
-      //   5: "Jun",
-      //   6: "Jul",
-      //   7: "Aug",
-      //   8: "Sep",
-      //   9: "Oct",
-      //   10: "Nov",
-      //   11: "Dec",
-      // };
+      const localFormat = {
+        decimal: ".",
+        thousands: ",",
+        grouping: [3],
+        currency: ["$", ""],
+        dateTime: "%a %b %e %X %Y",
+        date: "%m/%d/%Y",
+        time: "%H:%M:%S",
+        periods: ["AM", "PM"],
+        days: [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        months: [
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Dicembre",
+        ],
+        shortMonths: [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic",
+        ],
+      };
+      d3.timeFormatDefaultLocale(localFormat);
 
       var margin = { top: 10, right: 30, bottom: 30, left: 60 },
         width = 1000 - margin.left - margin.right,
@@ -118,48 +170,21 @@ export default {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
       function parseData(d) {
         return { Date: d3.timeParse("%Y-%m-%d")(d.Date), Open: d.Open };
       }
 
       let data = this.dataArray.map((elem) => parseData(elem));
 
-      /////////
-      // let dates = this.dataArray.map((elem) => elem.Date);
-
-      // var xScale = d3
-      //   .scaleLinear()
-      //   .domain([-1, dates.length])
-      //   .range([0, width]);
-      // var xDateScale = d3.scaleQuantize().domain([0, dates.length]).range(dates)
-      // let xBand = d3
-      //   .scaleBand()
-      //   .domain(d3.range(-1, dates.length))
-      //   .range([0, w])
-      //   .padding(0.3)
-      // var x = d3
-      //   .axisBottom()
-      //   .scale(xScale)
-      //   .tickFormat(function (d) {
-      //     d = dates[d];
-      //     hours = d.getHours();
-      //     minutes = (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
-      //     amPM = hours < 13 ? "am" : "pm";
-      //     return (
-      //       hours +
-      //       ":" +
-      //       minutes +
-      //       amPM +
-      //       " " +
-      //       d.getDate() +
-      //       " " +
-      //       months[d.getMonth()] +
-      //       " " +
-      //       d.getFullYear()
-      //     );
-      //   });
-
-      //////////////
+      let dataPrices = data.map((elem) => +elem.Open);
+      this.maxValue = Math.max.apply(null, dataPrices).toPrecision(6);
+      this.minValue = Math.min.apply(null, dataPrices).toPrecision(6);
+      const sumatory = (accumulator, currentValue) =>
+        accumulator + currentValue;
+      this.meanValue = (
+        dataPrices.reduce(sumatory) / dataPrices.length
+      ).toPrecision(6);
 
       var x = d3
         .scaleTime()
@@ -169,8 +194,6 @@ export default {
           })
         )
         .range([0, width]);
-
-      //////////////
 
       svg
         .append("g")
@@ -205,13 +228,6 @@ export default {
               return y(d.Open);
             })
         );
-      //
-      svg
-        .transition()
-        .duration(4000)
-        .delay(4000)
-        .ease(d3.easeElasticOut) // Indicamos la función de transición flexible
-        .style("width", "200px");
     },
   },
 };

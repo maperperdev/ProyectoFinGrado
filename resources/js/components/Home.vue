@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <p>En construcción</p>
     <table>
       <tr>
         <td>Nombre</td>

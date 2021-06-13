@@ -37,13 +37,6 @@
                     >Github</a
                   >
                 </li>
-                <li>
-                  <a
-                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
-                    href="https://www.bolsamania.com/"
-                    >Bolsamanía</a
-                  >
-                </li>
               </ul>
             </div>
             <div class="w-full px-4 lg:w-4/12">
@@ -71,13 +64,6 @@
                     class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
                     href="https://www.binance.com/"
                     >Binance</a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900"
-                    href="https://www.bloomberg.com/"
-                    >Bloomberg</a
                   >
                 </li>
               </ul>

@@ -3,9 +3,7 @@
 @section('content')
 
 <div class="container mt-36">
-    <div>
-        Porfolio
-    </div>
+    <img src=" {{ asset('images/finance.jpg') }}" alt="">
 </div>
 @endsection('content')
 

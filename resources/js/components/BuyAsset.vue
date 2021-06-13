@@ -1,53 +1,72 @@
 <template>
   <div>
-    <p>Esto es mi pagina de compra</p>
-    <select v-model="selected">
-      <option disabled value="">Seleccione un elemento</option>
-      <option>Acciones</option>
-      <option>Criptomonedas</option>
-    </select>
-    <br />
-    <br />
-    <input
-      type="text"
-      list="assetSymbolList"
-      name="companySymbol"
-      id="companySymbol"
-      v-if="selected != ''"
-      :placeholder="placeholderMessage"
-      :selected="selectedReactive"
-      v-model="assetName"
-      @change="getPrice()"
-    />
-    <br />
-    <br />
-    <datalist id="assetSymbolList">
-      <option v-for="asset of listOfAssets" :key="asset.asset_symbol">
-        {{ asset.asset_name }}
-      </option>
-    </datalist>
-    <input id="price" type="number" v-model="price" readonly />
-    <br />
-    <br />
-    <input
-      v-show="selected"
-      type="number"
-      v-model="quantity"
-      min="0"
-      placeholder="Introduzca la cantidad"
-    />
-    <br />
+    <div>
+      <select v-model="selected">
+        <option disabled value="">Seleccione un elemento</option>
+        <option>Acciones</option>
+        <option>Criptomonedas</option>
+      </select>
+    </div>
+
+    <div v-show="selected != ''">
+      <input
+        type="text"
+        list="assetSymbolList"
+        name="companySymbol"
+        id="companySymbol"
+        :placeholder="placeholderMessage"
+        @select="selectedReactive"
+        v-model="assetName"
+        @change="getPrice()"
+      />
+      <datalist id="assetSymbolList">
+        <option v-for="asset of listOfAssets" :key="asset.asset_symbol">
+          {{ asset.asset_name }}
+        </option>
+      </datalist>
+    </div>
+
+    <div v-show="assetName != ''">
+      <input
+        id="quantity"
+        type="number"
+        v-model="quantity"
+        min="0"
+        placeholder="Introduzca la cantidad"
+      />
+    </div>
+
+    <div>
+      <input id="price" type="number" v-model="price" readonly />
+    </div>
     <br />
 
-    <p>{{ totalOperationComputed }}</p>
+    <div v-show="quantity > 0">
+      <table>
+        <tr>
+          <td>
+            Total Compra: {{ quantity == "" ? "" : totalOperationComputed }}
+          </td>
+          <td
+            :class="
+              fundsAfterBuyComputed < 0
+                ? 'font-bold text-red-600'
+                : 'text-green-400'
+            "
+          >
+            Saldo Disponible: {{ fundsAfterBuyComputed }}
+          </td>
+        </tr>
+      </table>
 
-    <button
-      v-show="selected"
-      @click="buyAsset()"
-      class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
-    >
-      Comprar
-    </button>
+      <button
+        v-show="selected"
+        @click="buyAsset"
+        class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
+      >
+        Comprar
+      </button>
+    </div>
   </div>
 </template>
 
@@ -56,6 +75,9 @@ input {
   padding: 10px;
   width: 290px;
   border-radius: 10px;
+}
+div {
+  padding: 0.5rem;
 }
 </style>
 
@@ -66,7 +88,7 @@ export default {
   data() {
     return {
       selected: "",
-      quantity: null,
+      quantity: "",
       price: null,
       apiGetPriceAsset: "",
       apiListAssetURL: "",
@@ -75,10 +97,15 @@ export default {
       assetName: "",
       listOfAssets: [],
       totalOperation: null,
+      moneyAccount: "",
+      fundsAfterBuy: "",
     };
   },
   methods: {
     buyAsset() {
+      if (this.fundsAfterBuy < 0) {
+        alert("No tiene suficientes fondos para realizar la operación");
+      }
       const buyObject = {
         id_asset: this.getIdAsset(),
         purchase_price: this.price,
@@ -128,6 +155,11 @@ export default {
             ))
         );
     },
+    getAccountMoney() {
+      axios
+        .get("/user/money-account", {})
+        .then((promiseResponse) => (this.moneyAccount = promiseResponse.data));
+    },
     updateData() {
       if (this.selected === "Acciones") {
         this.apiListAssetURL = "/listOfStocks";
@@ -147,22 +179,41 @@ export default {
       return this.selected;
     },
     totalOperationComputed() {
-      if (this.quantity != null) {
-        return this.quantity * this.price;
+      if (this.quantity != 0) {
+        return Number.parseFloat(this.quantity * this.price).toPrecision(6);
       }
+    },
+    fundsAfterBuyComputed() {
+      return this.quantity > 0
+        ? this.moneyAccount - this.quantity * this.price
+        : this.moneyAccount;
     },
   },
   watch: {
     selected: function () {
       this.assetName = "";
       this.price = "";
+      this.quantity = "";
       this.updateData();
       this.getListAsset();
     },
   },
   mounted() {
     this.updateData();
+    this.getAccountMoney();
     this.getListAsset();
   },
 };
 </script>
+
+<style scoped>
+input {
+  border: 1px solid black;
+}
+input:active {
+  border: none;
+}
+td {
+  padding: 2rem;
+}
+</style>

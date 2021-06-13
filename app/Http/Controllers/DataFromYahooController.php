@@ -71,15 +71,17 @@ class DataFromYahooController extends Controller
 		$cleanArray = array();
 
 		for ($i = 1; $i < count($array); $i++) {
-			$cleanArray[] = array(
-				"Date" => $array[$i][0],
-				"Open" => $array[$i][1],
-				"High" => $array[$i][2],
-				"Low" => $array[$i][3],
-				"Close" => $array[$i][4],
-				"AdjClose" => $array[$i][5],
-				"Volumne" => $array[$i][6]
-			);
+			if ($array[$i][1] != "null") {
+				$cleanArray[] = array(
+					"Date" => $array[$i][0],
+					"Open" => $array[$i][1],
+					"High" => $array[$i][2],
+					"Low" => $array[$i][3],
+					"Close" => $array[$i][4],
+					"AdjClose" => $array[$i][5],
+					"Volumne" => $array[$i][6]
+				);
+			}
 		}
 		return response()->json($cleanArray);
 	}

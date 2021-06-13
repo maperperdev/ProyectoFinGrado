@@ -29,16 +29,12 @@
     <br />
     <button
       class="px-4 py-2 font-semibold text-center text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
-      @click="
-        getAccount();
-        visible = false;
-      "
+      @click="getAccount()"
       v-show="visible"
     >
       Ver portfolio
     </button>
-
-    <div v-show="account.length > 0" class="w-full py-8 md:px-32">
+    <div v-if="account.length > 0" class="w-full py-8 md:px-32">
       <div class="overflow-hidden border-b border-gray-200 rounded shadow">
         <table class="min-w-full bg-white">
           <thead class="text-white bg-gray-800">
@@ -141,6 +137,7 @@
         </nav>
       </div>
     </div>
+    <div v-show="isFilled">No tiene compras realizadas</div>
   </div>
 </template>
 
@@ -156,6 +153,7 @@ export default {
       account: [],
       pages: [],
       visible: true,
+      isFilled: false,
     };
   },
   methods: {
@@ -182,6 +180,7 @@ export default {
         .get("/user/money-account")
         .then((response) => (this.moneyAccount = response.data))
         .finally((data) => console.log(data));
+      this.isFilled = this.moneyAccount.length == 0;
     },
     setPages() {
       let numberOfPages = Math.ceil(this.account.length / this.perPage);
