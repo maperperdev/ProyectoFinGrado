@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Operation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -73,5 +74,15 @@ class UsersController extends Controller
         if ($updatedFields > 0) {
             $user->save();
         }
+    }
+
+    public function deleteUser() {
+        $operations = Operation::getOperationsById(Auth::id());
+        
+        foreach ($operations as $operation) {
+            $operation->delete();
+        }
+        User::destroy(Auth::id());
+        return view('welcome');
     }
 }

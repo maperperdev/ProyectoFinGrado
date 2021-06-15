@@ -60,7 +60,7 @@
       </table>
 
       <button
-        v-show="selected"
+        v-show="selected && fundsAfterBuyComputed > 0"
         @click="buyAsset"
         class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
       >

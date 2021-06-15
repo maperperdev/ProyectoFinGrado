@@ -3017,6 +3017,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3049,6 +3051,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     open: function open() {
@@ -3058,8 +3061,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$vm2.close("modal-1");
     },
     deleteAccount: function deleteAccount() {
-      console.log("cuenta borrada");
       this.close();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/delete-account").then(console.log("cuenta borrada"));
     }
   }
 });
@@ -3951,12 +3954,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+//
+//
+//
+//
 //
 //
 //
@@ -4031,21 +4032,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return _this.listOfUnsoldAsset = response.data;
       });
     },
-    addFieldToList: function addFieldToList() {
-      var _iterator = _createForOfIteratorHelper(this.listOfUnsoldAsset),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var asset = _step.value;
-          console.log(asset);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    },
     sellAsset: function sellAsset(id, index) {
       var myObj = {
         id: id,
@@ -4059,7 +4045,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   mounted: function mounted() {
     this.getUnsolAsset();
-    this.addFieldToList();
   }
 });
 
@@ -54079,8 +54064,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.selected,
-                expression: "selected"
+                value: _vm.selected && _vm.fundsAfterBuyComputed > 0,
+                expression: "selected && fundsAfterBuyComputed > 0"
               }
             ],
             staticClass:
@@ -54181,7 +54166,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("footer", { staticClass: "w-full pt-8 pb-6 bg-gray-300" }, [
+  return _c("footer", { staticClass: "w-full pt-8 pb-6 bg-gray-300 sticky" }, [
     _c("div", { staticClass: "container px-4 mx-auto" }, [
       _vm._m(0),
       _vm._v(" "),
@@ -54939,7 +54924,9 @@ var render = function() {
                         _c("td", { staticClass: "w-1/3 px-4 py-3 text-left" }, [
                           _vm._v(
                             "\n              " +
-                              _vm._s(elem.assetType) +
+                              _vm._s(
+                                elem.assetType == 1 ? "Acción" : "Criptomoneda"
+                              ) +
                               "\n            "
                           )
                         ]),
@@ -55192,6 +55179,14 @@ var render = function() {
     _c(
       "div",
       {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.listOfUnsoldAsset.length > 0,
+            expression: "listOfUnsoldAsset.length > 0"
+          }
+        ],
         staticClass: "overflow-hidden border-b border-gray-200 rounded shadow"
       },
       [
@@ -55230,6 +55225,15 @@ var render = function() {
                       "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                   },
                   [_vm._v("\n          Producto\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                  },
+                  [_vm._v("\n          Tipo \n        ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -55287,6 +55291,12 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(row.id))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(row.asset_name))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(row.asset_type == 2 ? "Criptomoneda" : "Acción")
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(row.purchase_price))]),
                     _vm._v(" "),
@@ -71627,8 +71637,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/miguel-angel/Code/laravelProjects/ProyectoFinGrado/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/miguel-angel/Code/laravelProjects/ProyectoFinGrado/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/miguel-angel/Code/2DAW/ProyectoFinGrado/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/miguel-angel/Code/2DAW/ProyectoFinGrado/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

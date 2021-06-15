@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="overflow-hidden border-b border-gray-200 rounded shadow">
+    <div class="overflow-hidden border-b border-gray-200 rounded shadow" v-show="listOfUnsoldAsset.length > 0">
       <table class="table-hover" @selectionChanged="selectedRows = $event">
         <thead class="text-white bg-gray-800" slot="head">
           <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
@@ -8,6 +8,9 @@
           </th>
           <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
             Producto
+          </th>
+          <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
+            Tipo 
           </th>
           <th class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase">
             Precio de compra
@@ -32,6 +35,7 @@
           >
             <td>{{ row.id }}</td>
             <td>{{ row.asset_name }}</td>
+            <td>{{ row.asset_type == 2 ? 'Criptomoneda' : 'Acción' }}</td>
             <td>{{ row.purchase_price }}</td>
             <td>{{ row.purchase_date }}</td>
             <td>{{ row.quantity }}</td>
@@ -71,11 +75,6 @@ export default {
         .get("/unsoldAssetList2")
         .then((response) => (this.listOfUnsoldAsset = response.data));
     },
-    addFieldToList() {
-      for (let asset of this.listOfUnsoldAsset) {
-        console.log(asset);
-      }
-    },
     sellAsset(id, index) {
       let myObj = {
         id: id,
@@ -96,7 +95,6 @@ export default {
 
   mounted() {
     this.getUnsolAsset();
-    this.addFieldToList();
   },
 };
 </script>

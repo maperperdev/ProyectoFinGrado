@@ -83,7 +83,7 @@
               </td>
 
               <td class="w-1/3 px-4 py-3 text-left">
-                {{ elem.assetType }}
+                {{ elem.assetType == 1 ? 'Acción' : 'Criptomoneda' }}
               </td>
 
               <td class="w-1/3 px-4 py-3 text-left">

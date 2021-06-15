@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="container mt-36">
-    <img src=" {{ asset('images/finance.jpg') }}" alt="">
+<div class="container">
+    <img src=" {{ asset('images/finance.jpg') }}" alt="" style="max-height: 100%;">
 </div>
 @endsection('content')
 

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   methods: {
     open() {
@@ -40,8 +41,10 @@ export default {
       this.$vm2.close("modal-1");
     },
     deleteAccount() {
-      console.log("cuenta borrada");
       this.close();
+      axios.post("/delete-account")
+            .then(console.log("cuenta borrada"));
+      
     },
   },
 };

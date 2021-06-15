@@ -9,7 +9,7 @@ class Operation extends Model
 {
     public $timestamps = false;
 
-    public function getOperationsById($id)
+    public static function getOperationsById($id)
     {
         return Operation::where('id_user', $id)->get();
     }
