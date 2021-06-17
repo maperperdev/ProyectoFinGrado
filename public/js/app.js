@@ -2875,6 +2875,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2907,6 +2934,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       console.log(buyObject);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/buyAsset", buyObject)["finally"](alert("Ha comprado ".concat(buyObject.quantity, " del producto ").concat(this.assetName, " por un precio de ").concat(this.price)));
       this.clearForm();
+    },
+    open: function open() {
+      this.$vm2.open("modal-1");
+    },
+    close: function close() {
+      this.$vm2.close("modal-1");
     },
     clearForm: function clearForm() {
       this.assetName = "";
@@ -3019,6 +3052,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -3251,6 +3286,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
 
 
 
@@ -3360,8 +3396,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           width = 1000 - margin.left - margin.right,
           height = 400 - margin.top - margin.bottom;
       var svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"]("svg");
-      svg.remove(); // append the svg object to the body of the page
-
+      svg.remove();
       svg = d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#my-graph").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       function parseData(d) {
@@ -3467,6 +3502,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -4016,6 +4052,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4039,8 +4125,14 @@ __webpack_require__.r(__webpack_exports__);
         selling_price: this.listOfUnsoldAsset[index].selling_price,
         asset_name: this.listOfUnsoldAsset[index].asset_name
       };
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/sellAsset", myObj)["finally"](alert("Ha vendido ".concat(myObj.quantity, " del producto ").concat(myObj.assetName, " por un precio de ").concat(myObj.selling_price)));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/sellAsset", myObj)["finally"](this.open());
       this.listOfUnsoldAsset.splice(index, 1);
+    },
+    open: function open() {
+      this.$vm2.open("modal-1");
+    },
+    close: function close() {
+      this.$vm2.close("modal-1");
     }
   },
   mounted: function mounted() {
@@ -53848,10 +53940,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function() {
+  var this$1 = this
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("h1", { staticClass: "text-4xl mb-10" }, [
+      _vm._v("Compra de productos")
+    ]),
+    _vm._v(" "),
     _c("div", [
       _c(
         "select",
@@ -53941,7 +54038,11 @@ var render = function() {
           { attrs: { id: "assetSymbolList" } },
           _vm._l(_vm.listOfAssets, function(asset) {
             return _c("option", { key: asset.asset_symbol }, [
-              _vm._v("\n        " + _vm._s(asset.asset_name) + "\n      ")
+              _vm._v(
+                "\n                " +
+                  _vm._s(asset.asset_name) +
+                  "\n            "
+              )
             ])
           }),
           0
@@ -54032,9 +54133,9 @@ var render = function() {
           _c("tr", [
             _c("td", [
               _vm._v(
-                "\n          Total Compra: " +
+                "\n                    Total Compra:\n                    " +
                   _vm._s(_vm.quantity == "" ? "" : _vm.totalOperationComputed) +
-                  "\n        "
+                  "\n                "
               )
             ]),
             _vm._v(" "),
@@ -54048,9 +54149,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n          Saldo Disponible: " +
+                  "\n                    Saldo Disponible: " +
                     _vm._s(_vm.fundsAfterBuyComputed) +
-                    "\n        "
+                    "\n                "
                 )
               ]
             )
@@ -54070,11 +54171,46 @@ var render = function() {
             ],
             staticClass:
               "px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700",
-            on: { click: _vm.buyAsset }
+            on: { click: _vm.open }
           },
-          [_vm._v("\n      Comprar\n    ")]
+          [_vm._v("\n            Comprar\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "vue-modal-2",
+          {
+            attrs: {
+              name: "modal-1",
+              headerOptions: {
+                title: "Realizar compra"
+              },
+              footerOptions: {
+                btn1: "Aceptar",
+                btn2: "Cancelar",
+                btn1Style: {
+                  backgroundColor: "blue",
+                  color: "white"
+                },
+                btn1OnClick: function() {
+                  this$1.buyAsset()
+                },
+                btn2OnClick: function() {
+                  _vm.$vm2.close("modal-1")
+                }
+              }
+            },
+            on: { "on-close": _vm.close }
+          },
+          [
+            _c("div", { staticClass: "px-7" }, [
+              _vm._v(
+                "\n                ¿Está seguro de la compra que va a realizar?\n            "
+              )
+            ])
+          ]
         )
-      ]
+      ],
+      1
     )
   ])
 }
@@ -54104,9 +54240,19 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("p", [_vm._v("Esto es mi modal")]),
+      _c("h1", { staticClass: "text-4xl mb-10 text-red-500" }, [
+        _vm._v("Borrar cuenta")
+      ]),
       _vm._v(" "),
-      _c("button", { on: { click: _vm.open } }, [_vm._v("Eliminar")]),
+      _c(
+        "button",
+        {
+          staticClass:
+            "px-4 py-2 font-semibold text-center text-red-700 bg-transparent border border-red-500 rounded  hover:bg-red-500 hover:text-white hover:border-transparent",
+          on: { click: _vm.open }
+        },
+        [_vm._v("Eliminar")]
+      ),
       _vm._v(" "),
       _c(
         "vue-modal-2",
@@ -54168,7 +54314,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("footer", { staticClass: "w-full pt-8 pb-6 bg-gray-300 sticky" }, [
     _c("div", { staticClass: "container px-4 mx-auto" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "flex flex-wrap" }, [
+        _c("div", { staticClass: "w-full px-4 lg:w-6/12" }, [
+          _c(
+            "h4",
+            { staticClass: "text-3xl font-semibold" },
+            [_vm._t("salute-text")],
+            2
+          ),
+          _vm._v(" "),
+          _c("h5", { staticClass: "mt-0 mb-2 text-lg text-gray-700" }, [
+            _vm._v(
+              "\n          Puede hacer sus inversiones con nuestros patrocinadores.\n        "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
       _vm._v(" "),
       _c("hr", { staticClass: "my-6 border-gray-400" }),
       _vm._v(" "),
@@ -54215,118 +54378,104 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-wrap" }, [
-      _c("div", { staticClass: "w-full px-4 lg:w-6/12" }, [
-        _c("h4", { staticClass: "text-3xl font-semibold" }, [
-          _vm._v("¡Pruebe nuestra aplicación!")
+    return _c("div", { staticClass: "w-full px-4 lg:w-6/12" }, [
+      _c("div", { staticClass: "flex flex-wrap mb-6 items-top" }, [
+        _c("div", { staticClass: "w-full px-4 ml-auto lg:w-4/12" }, [
+          _c(
+            "span",
+            {
+              staticClass:
+                "block mb-2 text-sm font-semibold text-gray-600 uppercase"
+            },
+            [_vm._v("Enlaces Útiles")]
+          ),
+          _vm._v(" "),
+          _c("ul", { staticClass: "list-unstyled" }, [
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                  attrs: { href: "https://es.finance.yahoo.com/" }
+                },
+                [_vm._v("Yahoo Finance")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                  attrs: { href: "https://coinmarketcap.com/" }
+                },
+                [_vm._v("CoinMarketCap")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                  attrs: {
+                    href: "https://github.com/maperperdev/ProyectoFinGrado/"
+                  }
+                },
+                [_vm._v("Github")]
+              )
+            ])
+          ])
         ]),
         _vm._v(" "),
-        _c("h5", { staticClass: "mt-0 mb-2 text-lg text-gray-700" }, [
-          _vm._v(
-            "\n          Puede hacer sus inversiones con nuestros patrocinadores.\n        "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-full px-4 lg:w-6/12" }, [
-        _c("div", { staticClass: "flex flex-wrap mb-6 items-top" }, [
-          _c("div", { staticClass: "w-full px-4 ml-auto lg:w-4/12" }, [
-            _c(
-              "span",
-              {
-                staticClass:
-                  "block mb-2 text-sm font-semibold text-gray-600 uppercase"
-              },
-              [_vm._v("Enlaces Útiles")]
-            ),
-            _vm._v(" "),
-            _c("ul", { staticClass: "list-unstyled" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
-                    attrs: { href: "https://es.finance.yahoo.com/" }
-                  },
-                  [_vm._v("Yahoo Finance")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
-                    attrs: { href: "https://coinmarketcap.com/" }
-                  },
-                  [_vm._v("CoinMarketCap")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
-                    attrs: {
-                      href: "https://github.com/maperperdev/ProyectoFinGrado/"
-                    }
-                  },
-                  [_vm._v("Github")]
-                )
-              ])
-            ])
-          ]),
+        _c("div", { staticClass: "w-full px-4 lg:w-4/12" }, [
+          _c(
+            "span",
+            {
+              staticClass:
+                "block mb-2 text-sm font-semibold text-gray-600 uppercase"
+            },
+            [_vm._v("Patrocinadores")]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "w-full px-4 lg:w-4/12" }, [
-            _c(
-              "span",
-              {
-                staticClass:
-                  "block mb-2 text-sm font-semibold text-gray-600 uppercase"
-              },
-              [_vm._v("Patrocinadores")]
-            ),
+          _c("ul", { staticClass: "list-unstyled" }, [
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                  attrs: { href: "https://www.ft.com/" }
+                },
+                [_vm._v("Financial Times")]
+              )
+            ]),
             _vm._v(" "),
-            _c("ul", { staticClass: "list-unstyled" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
-                    attrs: { href: "https://www.ft.com/" }
-                  },
-                  [_vm._v("Financial Times")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
-                    attrs: { href: "https://www.degiro.es/" }
-                  },
-                  [_vm._v("DeGiro")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
-                    attrs: { href: "https://www.binance.com/" }
-                  },
-                  [_vm._v("Binance")]
-                )
-              ])
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                  attrs: { href: "https://www.degiro.es/" }
+                },
+                [_vm._v("DeGiro")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "block pb-2 text-sm font-semibold text-gray-700  hover:text-gray-900",
+                  attrs: { href: "https://www.binance.com/" }
+                },
+                [_vm._v("Binance")]
+              )
             ])
           ])
         ])
@@ -54356,6 +54505,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("h1", { staticClass: "text-4xl mb-10" }, [
+      _vm._v("Evolución de precio de un producto")
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "grid-cols-2" }, [
       _c(
         "div",
@@ -54553,6 +54706,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("h1", { staticClass: "text-4xl mb-10" }, [_vm._v("Datos de su cuenta")]),
+    _vm._v(" "),
     _c("table", [
       _c("tr", [
         _c("td", [_vm._v("Nombre")]),
@@ -54816,8 +54971,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", { staticClass: "font-semibold text-gray-600" }, [
-      _vm._v("Portfolio")
+    _c("h1", { staticClass: "text-4xl mb-10" }, [
+      _vm._v("Información de su cuenta")
     ]),
     _vm._v(" "),
     _c("input", {
@@ -55175,162 +55330,224 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.listOfUnsoldAsset.length > 0,
-            expression: "listOfUnsoldAsset.length > 0"
-          }
-        ],
-        staticClass: "overflow-hidden border-b border-gray-200 rounded shadow"
-      },
-      [
-        _c(
-          "table",
-          {
-            staticClass: "table-hover",
-            on: {
-              selectionChanged: function($event) {
-                _vm.selectedRows = $event
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "text-4xl mb-10" }, [
+        _vm._v("Venta de productos")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.listOfUnsoldAsset.length > 0,
+              expression: "listOfUnsoldAsset.length > 0"
+            }
+          ],
+          staticClass: "overflow-hidden border-b border-gray-200 rounded shadow"
+        },
+        [
+          _c(
+            "table",
+            {
+              staticClass: "table-hover",
+              on: {
+                selectionChanged: function($event) {
+                  _vm.selectedRows = $event
+                }
+              }
+            },
+            [
+              _c(
+                "thead",
+                {
+                  staticClass: "text-white bg-gray-800",
+                  attrs: { slot: "head" },
+                  slot: "head"
+                },
+                [
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [_vm._v("\n                    Id\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [_vm._v("\n                    Producto\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [_vm._v("\n                    Tipo\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Precio de compra\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Fecha de compra\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [_vm._v("\n                    Cantidad\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Precio actual\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("th")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                { attrs: { slot: "body" }, slot: "body" },
+                _vm._l(_vm.listOfUnsoldAsset, function(row, index) {
+                  return _c(
+                    "tr",
+                    {
+                      key: index,
+                      class: index % 2 == 1 ? "bg-gray-100" : "",
+                      attrs: { row: row }
+                    },
+                    [
+                      _c("td", [_vm._v(_vm._s(row.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(row.asset_name))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(
+                              row.asset_type == 2 ? "Criptomoneda" : "Acción"
+                            ) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(row.purchase_price))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(row.purchase_date))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(row.quantity))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(row.selling_price))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+                            on: {
+                              click: function($event) {
+                                return _vm.sellAsset(row.id, index)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Vender\n                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                }),
+                0
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "vue-modal-2",
+        {
+          attrs: {
+            name: "modal-1",
+            headerOptions: {
+              title: "Realizar venta"
+            },
+            footerOptions: {
+              disableBtn2: true,
+              btn2Style: {
+                display: "hidden"
+              },
+              btn1: "Aceptar",
+              btn1Style: {
+                backgroundColor: "blue",
+                color: "white"
+              },
+              btn1OnClick: function() {
+                _vm.$vm2.close("modal-1")
               }
             }
           },
-          [
-            _c(
-              "thead",
-              {
-                staticClass: "text-white bg-gray-800",
-                attrs: { slot: "head" },
-                slot: "head"
-              },
-              [
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Id\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Producto\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Tipo \n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Precio de compra\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Fecha de compra\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Cantidad\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  {
-                    staticClass:
-                      "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
-                  },
-                  [_vm._v("\n          Precio actual\n        ")]
-                ),
-                _vm._v(" "),
-                _c("th")
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              { attrs: { slot: "body" }, slot: "body" },
-              _vm._l(_vm.listOfUnsoldAsset, function(row, index) {
-                return _c(
-                  "tr",
-                  {
-                    key: index,
-                    class: index % 2 == 1 ? "bg-gray-100" : "",
-                    attrs: { row: row }
-                  },
-                  [
-                    _c("td", [_vm._v(_vm._s(row.id))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(row.asset_name))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(row.asset_type == 2 ? "Criptomoneda" : "Acción")
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(row.purchase_price))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(row.purchase_date))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(row.quantity))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(row.selling_price))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
-                          on: {
-                            click: function($event) {
-                              return _vm.sellAsset(row.id, index)
-                            }
-                          }
-                        },
-                        [_vm._v("\n              Vender\n            ")]
-                      )
-                    ])
-                  ]
-                )
-              }),
-              0
+          on: { "on-close": _vm.close }
+        },
+        [
+          _c("div", { staticClass: "px-7" }, [
+            _vm._v(
+              "\n            Ha vendido satisfactoriamente el producto.\n        "
             )
-          ]
-        )
-      ]
-    )
-  ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

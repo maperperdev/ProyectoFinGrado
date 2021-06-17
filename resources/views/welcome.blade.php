@@ -10,6 +10,8 @@
 @section('footer')
 <div id="app" class="flex mx-auto">
 
-    <my-footer></my-footer>
+    <my-footer>
+        <template slot="salute-text">¡Pruebe nuestra aplicación!</template> 
+    </my-footer>
 </div>
 @endsection('footer')

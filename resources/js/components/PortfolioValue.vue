@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="font-semibold text-gray-600">Portfolio</h2>
+    <h1 class="text-4xl mb-10">Información de su cuenta</h1>
     <input
       type="number"
       v-model="addedMoney"

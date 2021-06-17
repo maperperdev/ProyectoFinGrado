@@ -3,7 +3,7 @@
     <div class="container px-4 mx-auto">
       <div class="flex flex-wrap">
         <div class="w-full px-4 lg:w-6/12">
-          <h4 class="text-3xl font-semibold">¡Pruebe nuestra aplicación!</h4>
+          <h4 class="text-3xl font-semibold"><slot name="salute-text"></slot></h4>
           <h5 class="mt-0 mb-2 text-lg text-gray-700">
             Puede hacer sus inversiones con nuestros patrocinadores.
           </h5>

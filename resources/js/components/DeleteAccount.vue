@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p>Esto es mi modal</p>
-    <button @click="open">Eliminar</button>
+    <h1 class="text-4xl mb-10 text-red-500">Borrar cuenta</h1>
+    <button
+      class="px-4 py-2 font-semibold text-center text-red-700 bg-transparent border border-red-500 rounded  hover:bg-red-500 hover:text-white hover:border-transparent"
+     @click="open">Eliminar</button>
     <vue-modal-2
       name="modal-1"
       :headerOptions="{

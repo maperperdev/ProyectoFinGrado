@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="text-4xl mb-10">Evolución de precio de un producto</h1>
     <div class="grid-cols-2">
       <div class="inline-block">
         <list-of-assets @change="getAssetSymbolFromChild"></list-of-assets>
@@ -162,7 +163,7 @@ export default {
         height = 400 - margin.top - margin.bottom;
       var svg = d3.select("svg");
       svg.remove();
-      // append the svg object to the body of the page
+      
       svg = d3
         .select("#my-graph")
         .append("svg")

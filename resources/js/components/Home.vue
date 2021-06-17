@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h1 class="text-4xl mb-10">Datos de su cuenta</h1>
     <table>
       <tr>
         <td>Nombre</td>
