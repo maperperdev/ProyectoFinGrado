@@ -30,7 +30,7 @@
                     :data="account"
                     :filters="filters"
                     :currentPage.sync="currentPage"
-                    :pageSize="4"
+                    :pageSize="3"
                     @totalPagesChanged="totalPages = $event"
                 >
                     <thead slot="head" class="text-white bg-gray-800">
@@ -175,6 +175,10 @@ export default {
         getProfit() {
             axios.get('/getProfit')
                 .then((response) => this.profit = response.data)
+        },
+        localDateFormat(date) {
+            let [year, month, day] = date.split('-');
+            return `${day}-${month}-${year}`;
         }
     },
     computed: {

@@ -38,7 +38,7 @@
 
         <button
             class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
-            @click="readonly = !readonly;"
+            @click="readonly = !readonly"
         >
             {{ readonly ? "Modificar" : "Cancelar" }}
         </button>
@@ -49,6 +49,30 @@
             Aceptar
         </button>
         <p>{{ errorsComputed }}</p>
+        <vue-modal-2
+            name="modal-1"
+            :headerOptions="{
+                title: 'Modificar usuario'
+            }"
+            :footerOptions="{
+                btn1: 'Aceptar',
+                btn2: '',
+                disableBtn2: true,
+                btn1Style: {
+
+                },
+                btn2Style: {
+                    visibility: 'hidden'
+                },
+                btn1OnClick: () => {
+                    $vm2.close('modal-1');
+                }
+            }"
+        >
+            <div class="px-7">
+                Usuario modificado
+            </div>
+        </vue-modal-2>
     </div>
 </template>
 
@@ -92,7 +116,7 @@ export default {
         update() {
             this.errors = "";
             if (this.readonly) {
-              // this.errors = "Pulse el botón de modificar si desea modificar algo.";
+                // this.errors = "Pulse el botón de modificar si desea modificar algo.";
                 return;
             }
             this.updatedParam.name = null;
@@ -102,12 +126,12 @@ export default {
                 this.updatedParam.name = this.name;
             }
             if (this.email != this.oldUser.email) {
-              if (this.validateEmail(this.email)) {
-                this.updatedParam.email = this.email;
-              } else {
-                this.errors = "El email introducido es incorrecto."
-                this.email = this.oldUser.email;
-              }
+                if (this.validateEmail(this.email)) {
+                    this.updatedParam.email = this.email;
+                } else {
+                    this.errors = "El email introducido es incorrecto.";
+                    this.email = this.oldUser.email;
+                }
             }
             this.validatePassword();
             if (this.errors != "") {
@@ -115,7 +139,8 @@ export default {
             }
             axios
                 .post("/user/update", this.updatedParam)
-                .then(() => console.log(this.updatedParam));
+                .then(() => this.$vm2.open("modal-1"));
+            this.readonly = true;
         },
         validatePassword() {
             if (this.password == this.oldUser.password) {

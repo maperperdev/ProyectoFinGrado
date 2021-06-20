@@ -1,6 +1,8 @@
 <template>
     <div>
         <h1 class="text-4xl mb-10">Venta de productos</h1>
+        
+        <h1 v-show="listOfUnsoldAsset.length == 0" class="text-xl mb-10">No tiene productos en su cartera</h1>
         <div
             class="overflow-hidden border-b border-gray-200 rounded shadow"
             v-show="listOfUnsoldAsset.length > 0"
@@ -72,24 +74,24 @@
             </table>
         </div>
 
-        <confirm-sell
+        <confirm-modal
             v-show="confirmModal" 
-            modalHeadline="Vender el producto seleccionado?"
-            deleteMessage="Are you sure?"
+            modalHeadline="Vender el producto seleccionado"
+            deleteMessage="¿Está seguro de la venta de ese producto?"
             @confirm="sellAsset"
             @close="close"
         >
-        </confirm-sell>
+        </confirm-modal>
     </div>
 </template>
 
 <script>
-import ConfirmSell from "./ConfirmSell.vue";
+import ConfirmModal from "./ConfirmModal.vue";
 import axios from "axios";
 
 export default {
     components: {
-        ConfirmSell
+        ConfirmModal
     },
     name: "SellAssetTest",
     data() {

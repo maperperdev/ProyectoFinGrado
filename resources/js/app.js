@@ -13,7 +13,7 @@ import Graphics from './components/Graphics';
 import DeleteAccount from './components/DeleteAccount';
 import Modal from "@burhanahmeed/vue-modal-2";
 import SmartTable from 'vuejs-smart-table';
-import ConfirmSell from './components/ConfirmSell'
+import ConfirmModal from './components/ConfirmModal'
 
 Vue.use(VueRouter);
 Vue.use(SmartTable);
@@ -50,6 +50,6 @@ const app = new Vue({
         'porfolio-value': PortfolioValue,
         'graphics': Graphics,
         'delete-account': DeleteAccount,
-        'confirm-sell': ConfirmSell
+        'confirm-sell': ConfirmModal
     }
 });

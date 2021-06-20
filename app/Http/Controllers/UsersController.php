@@ -83,6 +83,7 @@ class UsersController extends Controller
             $operation->delete();
         }
         User::destroy(Auth::id());
+        Auth::logout();
         return view('welcome');
     }
 }

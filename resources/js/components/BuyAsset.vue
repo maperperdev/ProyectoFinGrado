@@ -136,12 +136,7 @@ export default {
                 quantity: this.quantity
             };
             axios
-                .post("/buyAsset", buyObject)
-                .finally(
-                    alert(
-                        `Ha comprado ${buyObject.quantity} del producto ${this.assetName} por un precio de ${this.price}`
-                    )
-                );
+                .post("/buyAsset", buyObject);
             this.clearForm();
         },
         open() {

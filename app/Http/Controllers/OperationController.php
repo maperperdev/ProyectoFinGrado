@@ -50,10 +50,10 @@ class OperationController extends Controller
             $assetName = $result->asset_name;
             $assetType = $result->asset_type;
             $purchasePrice = $result->purchase_price;
-            $purchaseDate = $result->purchase_date;
+            $purchaseDate = date_format(date_create($result->purchase_date), 'd-m-Y');
             $quantity = $result->quantity;
             $sellingPrice = $result->selling_price;
-            $sellingDate = $result->selling_date;
+            $sellingDate = date_format(date_create($result->selling_date), 'd-m-Y');
             $array[] = array(
                 'assetSymbol' => $assetSymbol, 'assetName' => $assetName, 'assetType' => $assetType,
                 'purchasePrice' => $purchasePrice, 'purchaseDate' => $purchaseDate, 'quantity' => $quantity,
@@ -69,7 +69,6 @@ class OperationController extends Controller
         Operation::where('id', $request->input('id'))->update(array('selling_price' => $request->input('selling_price')));
         $amount = $request->input('quantity') * $request->input('selling_price');
         UsersController::updateMoneyAccount($amount);
-        echo $request->input('quantity');
     }
 
     public function getActualPriceOfAssets()
