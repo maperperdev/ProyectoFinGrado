@@ -1,218 +1,208 @@
 <template>
-  <div>
-    <h1 class="text-4xl mb-10">Información de su cuenta</h1>
-    <input
-      type="number"
-      v-model="addedMoney"
-      name="moneyAccount"
-      id=""
-      style="width: 30rem"
-      placeholder="Introduzca la cantidad que vaya a ingresar"
-      min="0"
-    />
+    <div>
+        <h1 class="text-4xl mb-10">Información de su cuenta</h1>
+        <input
+            type="number"
+            v-model="addedMoney"
+            name="moneyAccount"
+            id=""
+            style="width: 30rem"
+            placeholder="Introduzca la cantidad que vaya a ingresar"
+            min="0"
+        />
 
-    <button
-      @click="addFunds"
-      class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
-    >
-      Agregar fondos
-    </button>
-    <input
-      readonly
-      :value="moneyAccountValue"
-      type="text"
-      disabled
-      class="flex flex-row-reverse border-gray-500 border-solid"
-    />
+        <button
+            @click="addFunds"
+            class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
+        >
+            Agregar fondos
+        </button>
+        <p>Beneficio: <span :class="profit > 0 ? 'text-green-600' : 'text-red-600'">{{ profit }}</span></p>
+        <p>Cuenta corriente: <span>{{ moneyAccountValue}}</span></p>
 
-    <hr />
-    <br />
-    <button
-      class="px-4 py-2 font-semibold text-center text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
-      @click="getAccount()"
-      v-show="visible"
-    >
-      Ver portfolio
-    </button>
-    <div v-if="account.length > 0" class="w-full py-8 md:px-32">
-      <div class="overflow-hidden border-b border-gray-200 rounded shadow">
-        <table class="min-w-full bg-white">
-          <thead class="text-white bg-gray-800">
-            <tr>
-              <th
-                class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
-              >
-                Nombre producto
-              </th>
-              <th
-                class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
-              >
-                Tipo de producto
-              </th>
-              <th
-                class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
-              >
-                Precio de compra
-              </th>
-              <th
-                class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
-              >
-                Fecha de compra
-              </th>
-              <th
-                class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase "
-              >
-                Cantidad
-              </th>
-              <th class="px-4 py-3 text-sm font-semibold text-left uppercase">
-                Precio de venta
-              </th>
-              <th class="px-4 py-3 text-sm font-semibold text-left uppercase">
-                Fecha de venta
-              </th>
-            </tr>
-          </thead>
-          <tbody class="text-gray-700">
-            <tr
-              v-for="(elem, index) in displayedPosts"
-              :key="index"
-              :class="index % 2 == 1 ? 'bg-gray-100' : ''"
+        <div v-show="account.length > 0" class="w-full py-8 md:px-32">
+            <input class="w-1/2 h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline" type="text" v-model="filters.assetName.value" placeholder="Filtrar por producto" />
+            <br>
+            <div
+                class="overflow-hidden border-b border-gray-200 rounded shadow"
             >
-              <td class="w-1/3 px-4 py-3 text-left">
-                {{ elem.assetName }}
-              </td>
+                <v-table
+                    :data="account"
+                    :filters="filters"
+                    :currentPage.sync="currentPage"
+                    :pageSize="4"
+                    @totalPagesChanged="totalPages = $event"
+                >
+                    <thead slot="head" class="text-white bg-gray-800">
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase "
+                            sortKey="assetName"
+                            defaultSort="desc"
+                        >
+                            Nombre producto
+                        </v-th>
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase "
+                            sortKey="assetType"
+                            defaultSort="desc"
+                        >
+                            Tipo de producto
+                        </v-th>
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase "
+                            sortKey="purchasePrice"
+                            defaultSort="desc"
+                        >
+                            Precio de compra
+                        </v-th>
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase "
+                            sortKey="purchaseDate"
+                            defaultSort="desc"
+                        >
+                            Fecha de compra
+                        </v-th>
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase "
+                            sortKey="quantity"
+                            defaultSort="desc"
+                        >
+                            Cantidad
+                        </v-th>
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase"
+                            sortKey="sellingPrice"
+                            defaultSort="desc"
+                        >
+                            Precio de venta
+                        </v-th>
+                        <v-th
+                            class="px-4 py-3 text-sm font-semibold text-left uppercase"
+                            sortKey="sellingDate"
+                            defaultSort="desc"
+                        >
+                            Fecha de venta
+                        </v-th>
+                    </thead>
+                    <tbody
+                        slot="body"
+                        slot-scope="{ displayData }"
+                        class="text-gray-700"
+                    >
+                        <tr
+                            v-for="(elem, index) in displayData"
+                            :key="index"
+                            :class="index % 2 == 1 ? 'bg-gray-100' : ''"
+                        >
+                            <td class="w-1/3 px-4 py-3 text-left">
+                                {{ elem.assetName }}
+                            </td>
 
-              <td class="w-1/3 px-4 py-3 text-left">
-                {{ elem.assetType == 1 ? 'Acción' : 'Criptomoneda' }}
-              </td>
+                            <td class="w-1/3 px-4 py-3 text-left">
+                                {{
+                                    elem.assetType == 1
+                                        ? "Acción"
+                                        : "Criptomoneda"
+                                }}
+                            </td>
 
-              <td class="w-1/3 px-4 py-3 text-left">
-                {{ elem.purchasePrice }}
-              </td>
+                            <td class="w-1/3 px-4 py-3 text-left">
+                                {{ elem.purchasePrice }}
+                            </td>
 
-              <td class="w-1/3 px-4 py-3 text-left">
-                {{ elem.purchaseDate }}
-              </td>
+                            <td class="w-1/3 px-4 py-3 text-left">
+                                {{ elem.purchaseDate }}
+                            </td>
 
-              <td class="w-1/3 px-4 py-3 text-left">
-                {{ elem.quantity }}
-              </td>
+                            <td class="w-1/3 px-4 py-3 text-left">
+                                {{ elem.quantity }}
+                            </td>
 
-              <td class="px-4 py-3 text-left">
-                {{ elem.sellingPrice }}
-              </td>
-              <td class="px-4 py-3 text-left">
-                {{ elem.sellingDate }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <nav aria-label="Page navigation example" class="block">
-          <ul class="list-none rounded">
-            <li class="inline-block">
-              <button type="button" v-if="page != 1" @click="page--">
-                Atrás
-              </button>
-            </li>
-            <li
-              class="inline-block"
-              v-for="pageNumber in pages.slice(page - 1, page + 5)"
-              :key="pageNumber"
-            >
-              <button
-                type="button"
-                class="relative flex items-center justify-center w-8 h-8 p-0 mx-1 text-xs font-semibold leading-tight text-teal-500 bg-white border border-teal-500 border-solid rounded-full  first:ml-0"
-                @click="page = pageNumber"
-              >
-                {{ pageNumber }}
-              </button>
-            </li>
-            <li class="inline-block">
-              <button type="button" @click="page++" v-if="page < pages.length">
-                Siguiente
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
+                            <td class="px-4 py-3 text-left">
+                                {{ elem.sellingPrice }}
+                            </td>
+                            <td class="px-4 py-3 text-left">
+                                {{ elem.sellingDate }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </v-table>
+                <smart-pagination
+                    :currentPage.sync="currentPage"
+                    :totalPages="totalPages"
+                />
+            </div>
+        </div>
     </div>
-    <div v-show="isFilled">No tiene compras realizadas</div>
-  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      idUser: "",
-      moneyAccount: 0,
-      page: 1,
-      perPage: 4,
-      addedMoney: null,
-      account: [],
-      pages: [],
-      visible: true,
-      isFilled: false,
-    };
-  },
-  methods: {
-    addFunds() {
-      axios
-        .post("/user/add-money", { money: this.addedMoney })
-        .then((this.moneyAccount = +this.addedMoney + this.moneyAccount))
-        .finally((this.addedMoney = 0));
+    data() {
+        return {
+            moneyAccount: 0,
+            account: [],
+            addedMoney: null,
+            visible: true,
+            isFilled: false,
+            profit: 0,
+            filters: {
+                assetName: { value: "", keys: ["assetName"] }
+            },
+            currentPage: 1,
+            totalPages: 0
+        };
     },
-    getAccount() {
-      axios
-        .post("/getAccountValue", {
-          id_user: this.idUser,
-        })
-        .then((promiseResponse) => (this.account = promiseResponse.data));
+    methods: {
+        addFunds() {
+            axios
+                .post("/user/add-money", { money: this.addedMoney })
+                .then(
+                    (this.moneyAccount = +this.addedMoney + this.moneyAccount)
+                )
+                .finally((this.addedMoney = ""));
+        },
+        getAccount() {
+            axios
+                .post("/getAccountValue", {})
+                .then(promiseResponse => (this.account = promiseResponse.data))
+        },
+        getMoneyAccount() {
+            axios
+                .get("/user/money-account")
+                .then(response => (this.moneyAccount = response.data))
+        },
+        getProfit() {
+            axios.get('/getProfit')
+                .then((response) => this.profit = response.data)
+        }
     },
-    getIdUser() {
-      axios
-        .get("/user/id")
-        .then((promiseResponse) => (this.idUser = promiseResponse.data));
+    computed: {
+        moneyAccountValue() {
+            return this.moneyAccount;
+        }
     },
-    getMoneyAccount() {
-      axios
-        .get("/user/money-account")
-        .then((response) => (this.moneyAccount = response.data))
-        .finally((data) => console.log(data));
-      this.isFilled = this.moneyAccount.length == 0;
-    },
-    setPages() {
-      let numberOfPages = Math.ceil(this.account.length / this.perPage);
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
-    },
-    paginate(posts) {
-      let page = this.page;
-      let perPage = this.perPage;
-      let from = page * perPage - perPage;
-      let to = page * perPage;
-      return posts.slice(from, to);
-    },
-  },
-  computed: {
-    displayedPosts() {
-      return this.paginate(this.account);
-    },
-    moneyAccountValue() {
-      return this.moneyAccount;
-    },
-  },
-  watch: {
-    account() {
-      this.setPages();
-    },
-  },
-  mounted() {
-    this.getIdUser();
-    this.getAccount();
-    this.getMoneyAccount();
-  },
+    mounted() {
+        this.getMoneyAccount();
+        this.getProfit();
+        this.getAccount();
+    }
 };
 </script>
+
+<style>
+.pagination {
+    border-radius: 25%;
+    list-style: none;
+    display: inline-block;
+}
+.page-item {
+    float: left;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+</style>

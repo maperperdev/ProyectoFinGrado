@@ -12,6 +12,7 @@
         <div v-show="selected != ''">
             <input
                 type="text"
+                class="w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline"
                 list="assetSymbolList"
                 name="companySymbol"
                 id="companySymbol"
@@ -33,12 +34,13 @@
                 type="number"
                 v-model="quantity"
                 min="0"
+                class="w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline"
                 placeholder="Introduzca la cantidad"
             />
         </div>
 
         <div>
-            <input id="price" type="number" v-model="price" readonly />
+            <input class="w-1/2 h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline" id="price" type="number" v-model="price" readonly />
         </div>
         <br />
 
@@ -98,11 +100,6 @@
 </template>
 
 <style scoped>
-input {
-    padding: 10px;
-    width: 290px;
-    border-radius: 10px;
-}
 div {
     padding: 0.5rem;
 }
@@ -138,7 +135,6 @@ export default {
                 purchase_price: this.price,
                 quantity: this.quantity
             };
-            console.log(buyObject);
             axios
                 .post("/buyAsset", buyObject)
                 .finally(
@@ -231,7 +227,7 @@ export default {
         }
     },
     watch: {
-        selected: function() {
+        selected() {
             this.assetName = "";
             this.price = "";
             this.quantity = "";
@@ -246,15 +242,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-input {
-    border: 1px solid black;
-}
-input:active {
-    border: none;
-}
-td {
-    padding: 2rem;
-}
-</style>

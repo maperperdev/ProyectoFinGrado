@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DataFromYahooController;
-use App\User;
-use Users;
 
 class OperationController extends Controller
 {
@@ -37,9 +35,9 @@ class OperationController extends Controller
         $operation->save();
     }
 
-    public function getAccountValue(Request $request)
+    public function getAccountValue()
     {
-        $id_user = $request->input('id_user');
+        $id_user = Auth::id(); 
         $results = DB::table('operations')
             ->select(DB::raw('asset_name, asset_symbol, asset_type, purchase_price, purchase_date, quantity, selling_price, selling_date'))
             ->join('asset_name_symbol', 'asset_name_symbol.id', '=', 'operations.id_asset')
@@ -65,33 +63,13 @@ class OperationController extends Controller
         return $array;
     }
 
-    public function getAccountValueOld(Request $request)
-    {
-        $id_user = $request->input('id_user');
-        $results = DB::table('operations')
-            ->select(DB::raw('sum(operations.quantity) as quantity, asset_symbol'))
-            ->join('asset_name_symbol', 'asset_name_symbol.id', '=', 'operations.id_asset')
-            ->where('operations.id_user', '=', $id_user)
-            ->groupBy('operations.id_asset')
-            ->get();
-        $array = array();
-        foreach ($results as $result) {
-            $assetSymbol = $result->asset_symbol;
-            $quantity = $result->quantity;
-            $price = DataFromYahooController::getPriceAsset($assetSymbol)->content();
-            $fixedPrice = substr($price, 10, strlen($price) - 12);
-            $array[] = array('assetSymbol' => $assetSymbol, 'quantity' => $quantity, 'price' => $fixedPrice);
-        }
-
-        return $array;
-    }
-
     public function sellAsset(Request $request)
     {
         Operation::where('id', $request->input('id'))->update(array('selling_date' => now()));
         Operation::where('id', $request->input('id'))->update(array('selling_price' => $request->input('selling_price')));
         $amount = $request->input('quantity') * $request->input('selling_price');
         UsersController::updateMoneyAccount($amount);
+        echo $request->input('quantity');
     }
 
     public function getActualPriceOfAssets()
@@ -144,5 +122,20 @@ class OperationController extends Controller
             }
         }
         return json_encode($result);
+    }
+
+    public function getProfit() 
+    {
+        $queryResult = DB::table('operations')
+            ->join('asset_name_symbol', 'asset_name_symbol.id', '=', 'operations.id_asset')
+            ->where('id_user', Auth::id())
+            ->whereNotNull('selling_price')
+            ->select('asset_symbol', 'asset_name', 'asset_type', 'purchase_price', 'purchase_date', 'quantity', 'selling_price', 'selling_date', 'operations.id')
+            ->get();
+        $result = 0;
+        foreach ($queryResult as $row) {
+            $result += $row->quantity * ($row->selling_price - $row->purchase_price);
+        }
+        return $result;
     }
 }

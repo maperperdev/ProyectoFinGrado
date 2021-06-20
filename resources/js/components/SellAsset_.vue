@@ -10,6 +10,11 @@
                 @selectionChanged="selectedRows = $event"
             >
                 <thead class="text-white bg-gray-800" slot="head">
+                    <!-- <th
+                        class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
+                    >
+                        Id
+                    </th> -->
                     <th
                         class="w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                     >
@@ -49,6 +54,7 @@
                         :row="row"
                         :class="index % 2 == 1 ? 'bg-gray-100' : ''"
                     >
+                        <!-- <td>{{ row.id }}</td> -->
                         <td>{{ row.asset_name }}</td>
                         <td>
                             {{
@@ -61,7 +67,7 @@
                         <td>{{ row.selling_price }}</td>
                         <td>
                             <button
-                                @click="confirmSelectedAsset(row, index)"
+                                @click="sellAsset(row.id, index)"
                                 class="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent"
                             >
                                 Vender
@@ -72,33 +78,45 @@
             </table>
         </div>
 
-        <confirm-sell
-            v-show="confirmModal" 
-            modalHeadline="Vender el producto seleccionado?"
-            deleteMessage="Are you sure?"
-            @confirm="sellAsset"
-            @close="close"
+        <vue-modal-2
+            name="modal-1"
+            :headerOptions="{
+                title: 'Realizar venta'
+            }"
+            @on-close="close"
+            :footerOptions="{
+                disableBtn2: true,
+                btn2Style: {
+                    display: 'hidden'
+                },
+                btn1: 'Aceptar',
+                btn1Style: {
+                    backgroundColor: 'blue',
+                    color: 'white'
+                },
+                btn1OnClick: () => {
+                    $vm2.close('modal-1');
+                }
+            }"
         >
-        </confirm-sell>
+            <div class="px-7">
+                Ha vendido satisfactoriamente el producto.
+            </div>
+        </vue-modal-2>
+        <!-- <strong>Selected:</strong>
+    <div v-if="selectedRows.length === 0" class="text-muted">
+      No Rows Selected
+    </div> -->
     </div>
 </template>
 
 <script>
-import ConfirmSell from "./ConfirmSell.vue";
 import axios from "axios";
-
 export default {
-    components: {
-        ConfirmSell
-    },
-    name: "SellAssetTest",
     data() {
         return {
             listOfUnsoldAsset: [],
-            selectedRows: [],
-            index: null,
-            confirmModal: false,
-            id: null
+            selectedRows: []
         };
     },
     methods: {
@@ -107,36 +125,26 @@ export default {
                 .get("/unsoldAssetList2")
                 .then(response => (this.listOfUnsoldAsset = response.data));
         },
-        confirmSelectedAsset(row, index) {
-            this.confirmModal = true;
-            this.id = row.id;
-            this.sellingAssetConfirmed = row;
-            this.index = index;
-        },
-        cancelSell() {
-            this.sellingAssetConfirmed = null;
-            this.id = null;
-        },
-        sellAsset() {
+        sellAsset(id, index) {
             let myObj = {
-                id: this.id,
-                quantity: this.listOfUnsoldAsset[this.index].quantity,
-                selling_price: this.listOfUnsoldAsset[this.index].selling_price,
-                asset_name: this.listOfUnsoldAsset[this.index].asset_name
+                id: id,
+                quantity: this.listOfUnsoldAsset[index].quantity,
+                selling_price: this.listOfUnsoldAsset[index].selling_price,
+                asset_name: this.listOfUnsoldAsset[index].asset_name
             };
-            axios.post("/sellAsset", myObj);
-            this.listOfUnsoldAsset.splice(this.index, 1);
-            this.id = null;
-            this.index = null;
-            this.close();
+            axios.post("/sellAsset", myObj).finally(this.open());
+            this.listOfUnsoldAsset.splice(index, 1);
+        },
+        open() {
+            this.$vm2.open("modal-1");
+        },
+        close() {
+            this.$vm2.close("modal-1");
         },
         formatDate(date) {
             let year, month, day;
             [year, month, day] = date.split("-");
             return `${day}-${month}-${year}`;
-        },
-        close() {
-            this.confirmModal = false;
         }
     },
     mounted() {

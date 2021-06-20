@@ -10,13 +10,13 @@ import BuyAsset from './components/BuyAsset';
 import SellAsset from './components/SellAsset';
 import PortfolioValue from './components/PortfolioValue';
 import Graphics from './components/Graphics';
-import Account from './components/Account';
 import DeleteAccount from './components/DeleteAccount';
-import DeleteAccountModal from './components/DeleteAccountModal';
 import Modal from "@burhanahmeed/vue-modal-2";
-
+import SmartTable from 'vuejs-smart-table';
+import ConfirmSell from './components/ConfirmSell'
 
 Vue.use(VueRouter);
+Vue.use(SmartTable);
 Vue.use(Modal);
 
 
@@ -49,8 +49,7 @@ const app = new Vue({
         'sell-asset': SellAsset,
         'porfolio-value': PortfolioValue,
         'graphics': Graphics,
-        'account': Account,
         'delete-account': DeleteAccount,
-        'delete-account-modal': DeleteAccountModal,
+        'confirm-sell': ConfirmSell
     }
 });

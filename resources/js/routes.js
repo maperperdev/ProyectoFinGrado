@@ -3,7 +3,6 @@ import BuyAsset from './components/BuyAsset';
 import SellAsset from './components/SellAsset';
 import PortfolioValue from './components/PortfolioValue';
 import Graphics from './components/Graphics';
-import Account from './components/Account';
 import DeleteAccount from './components/DeleteAccount';
 
 export default {
@@ -28,10 +27,6 @@ export default {
         {
             path: '/home/porfolio-value',
             component: PortfolioValue,
-        },
-        {
-            path: '/home/account',
-            component: Account,
         },
         {
             path: '/home/delete-account',

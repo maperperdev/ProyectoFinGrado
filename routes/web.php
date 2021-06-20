@@ -64,6 +64,8 @@ Route::post('/user/update', 'UsersController@updateUser');
 
 Route::get('/user/data', 'UsersController@getUserData');
 
+Route::get('/getProfit', 'OperationController@getProfit');
+
 Route::post('/delete-account', 'UsersController@deleteUser');
 
 Route::get('/home/{any?}', function () {
