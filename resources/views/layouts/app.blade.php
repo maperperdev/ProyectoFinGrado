@@ -77,11 +77,11 @@
         </footer>
 
     </div>
-    <script>
+    <!-- <script>
         document.getElementById('nav-toggle').onclick = function() {
             document.getElementById("nav-content").classList.toggle("hidden");
         }
-    </script>
+    </script> -->
 
 </body>
 

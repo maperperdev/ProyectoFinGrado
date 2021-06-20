@@ -33,9 +33,9 @@
             <router-view></router-view>
         </div>
 
-    <my-footer>
+        <!-- <my-footer>
         <template slot="salute-text">¡Bienvenido a su portfolio digital!</template> 
-    </my-footer>
+    </my-footer> -->
     </div>
 </div>
 @endsection

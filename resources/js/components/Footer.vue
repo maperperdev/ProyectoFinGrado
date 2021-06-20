@@ -1,9 +1,11 @@
 <template>
-  <footer class="w-full pt-8 pb-6 bg-gray-300 sticky">
+  <footer class="w-full pt-4 pb-3 bg-gray-300">
     <div class="container px-4 mx-auto">
       <div class="flex flex-wrap">
         <div class="w-full px-4 lg:w-6/12">
-          <h4 class="text-3xl font-semibold"><slot name="salute-text"></slot></h4>
+          <h4 class="text-xl font-semibold">
+            <slot name="salute-text"></slot>
+          </h4>
           <h5 class="mt-0 mb-2 text-lg text-gray-700">
             Puede hacer sus inversiones con nuestros patrocinadores.
           </h5>

@@ -2882,6 +2882,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3301,6 +3306,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3336,18 +3343,6 @@ function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "und
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3450,6 +3445,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       if (startDate.getTime() > endDate.getTime()) {
         this.error += "La fecha de inicio es más antigua que la fecha final.";
+        return;
+      }
+
+      var today = new Date();
+
+      if (endDate.getTime() > today.getTime()) {
+        this.error += "La fecha de fin no puede ser posterior al día de hoy.";
         return;
       }
     },
@@ -4079,6 +4081,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4121,12 +4126,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     getProfit: function getProfit() {
       var _this3 = this;
 
-      axios.get('/getProfit').then(function (response) {
+      axios.get("/getProfit").then(function (response) {
         return _this3.profit = response.data;
       });
     },
     localDateFormat: function localDateFormat(date) {
-      var _date$split = date.split('-'),
+      var _date$split = date.split("-"),
           _date$split2 = _slicedToArray(_date$split, 3),
           year = _date$split2[0],
           month = _date$split2[1],
@@ -4173,19 +4178,6 @@ function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "und
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4437,7 +4429,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".pagination {\n  border-radius: 25%;\n  list-style: none;\n  display: inline-block;\n}\n.page-item {\n  float: left;\n  padding: 0.5rem 0.75rem;\n  margin-left: -1px;\n  line-height: 1.25;\n  color: #007bff;\n  background-color: #fff;\n  border: 1px solid #dee2e6;\n}\n", ""]);
+exports.push([module.i, "input {\n  text-indent: 10px;\n}\n.pagination {\n  border-radius: 25%;\n  list-style: none;\n  display: inline-block;\n}\n.page-item {\n  float: left;\n  padding: 0.5rem 0.75rem;\n  margin-left: -1px;\n  line-height: 1.25;\n  color: #007bff;\n  background-color: #fff;\n  border: 1px solid #dee2e6;\n}\n", ""]);
 
 // exports
 
@@ -55252,7 +55244,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", { staticClass: "text-4xl mb-10" }, [
+    _c("h1", { staticClass: "mb-10 text-4xl" }, [
       _vm._v("Compra de productos")
     ]),
     _vm._v(" "),
@@ -55319,7 +55311,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline",
+            "w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg  focus:shadow-outline",
           attrs: {
             type: "text",
             list: "assetSymbolList",
@@ -55347,11 +55339,7 @@ var render = function() {
           { attrs: { id: "assetSymbolList" } },
           _vm._l(_vm.listOfAssets, function(asset) {
             return _c("option", { key: asset.asset_symbol }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(asset.asset_name) +
-                  "\n            "
-              )
+              _vm._v("\n        " + _vm._s(asset.asset_name) + "\n      ")
             ])
           }),
           0
@@ -55382,7 +55370,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline",
+            "w-full h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg  focus:shadow-outline",
           attrs: {
             id: "quantity",
             type: "number",
@@ -55413,7 +55401,7 @@ var render = function() {
           }
         ],
         staticClass:
-          "w-1/2 h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline",
+          "w-1/2 h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg  focus:shadow-outline",
         attrs: { id: "price", type: "number", readonly: "" },
         domProps: { value: _vm.price },
         on: {
@@ -55442,19 +55430,20 @@ var render = function() {
         ]
       },
       [
-        _c("table", [
+        _c("table", { staticClass: "mb-5" }, [
           _c("tr", [
-            _c("td", [
+            _c("td", { staticClass: "px-4" }, [
               _vm._v(
-                "\n                    Total Compra:\n                    " +
+                "\n          Total Compra:\n          " +
                   _vm._s(_vm.quantity == "" ? "" : _vm.totalOperationComputed) +
-                  "\n                "
+                  "\n        "
               )
             ]),
             _vm._v(" "),
             _c(
               "td",
               {
+                staticClass: "px-4",
                 class:
                   _vm.fundsAfterBuyComputed < 0
                     ? "font-bold text-red-600"
@@ -55462,9 +55451,9 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                    Saldo Disponible: " +
+                  "\n          Saldo Disponible: " +
                     _vm._s(_vm.fundsAfterBuyComputed) +
-                    "\n                "
+                    "\n        "
                 )
               ]
             )
@@ -55486,7 +55475,7 @@ var render = function() {
               "px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700",
             on: { click: _vm.open }
           },
-          [_vm._v("\n            Comprar\n        ")]
+          [_vm._v("\n      Comprar\n    ")]
         ),
         _vm._v(" "),
         _c(
@@ -55516,9 +55505,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "px-7" }, [
-              _vm._v(
-                "\n                ¿Está seguro de la compra que va a realizar?\n            "
-              )
+              _vm._v("¿Está seguro de la compra que va a realizar?")
             ])
           ]
         )
@@ -55804,13 +55791,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("footer", { staticClass: "w-full pt-8 pb-6 bg-gray-300 sticky" }, [
+  return _c("footer", { staticClass: "w-full pt-4 pb-3 bg-gray-300" }, [
     _c("div", { staticClass: "container px-4 mx-auto" }, [
       _c("div", { staticClass: "flex flex-wrap" }, [
         _c("div", { staticClass: "w-full px-4 lg:w-6/12" }, [
           _c(
             "h4",
-            { staticClass: "text-3xl font-semibold" },
+            { staticClass: "text-xl font-semibold" },
             [_vm._t("salute-text")],
             2
           ),
@@ -55997,7 +55984,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", { staticClass: "text-4xl mb-10" }, [
+    _c("h1", { staticClass: "mb-10 text-4xl" }, [
       _vm._v("Evolución de precio de un producto")
     ]),
     _vm._v(" "),
@@ -56052,11 +56039,7 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("div", { staticClass: "error" }, [
-            _vm._v("\n                " + _vm._s(_vm.error) + "\n            ")
-          ])
+          _c("br")
         ],
         1
       ),
@@ -56086,11 +56069,15 @@ var render = function() {
       "button",
       {
         staticClass:
-          "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+          "px-4 py-2 my-5 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
         on: { click: _vm.getDataForPlot }
       },
-      [_vm._v("\n        Ver gráfica\n    ")]
+      [_vm._v("\n    Ver gráfica\n  ")]
     ),
+    _vm._v(" "),
+    _c("div", { staticClass: "text-lg text-red-600" }, [
+      _vm._v("\n    " + _vm._s(_vm.error) + "\n  ")
+    ]),
     _vm._v(" "),
     _c("div", { attrs: { id: "my-graph" } })
   ])
@@ -56500,8 +56487,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", { staticClass: "text-4xl mb-10" }, [
+  return _c("div", { staticClass: "w-full" }, [
+    _c("h1", { staticClass: "mb-10 text-4xl" }, [
       _vm._v("Información de su cuenta")
     ]),
     _vm._v(" "),
@@ -56514,7 +56501,8 @@ var render = function() {
           expression: "addedMoney"
         }
       ],
-      staticStyle: { width: "30rem" },
+      staticClass:
+        "w-1/2 h-12 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg  focus:shadow-outline",
       attrs: {
         type: "number",
         name: "moneyAccount",
@@ -56538,13 +56526,14 @@ var render = function() {
       {
         staticClass:
           "px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded  hover:bg-blue-500 hover:text-white hover:border-transparent",
+        staticStyle: { "text-indent": "10px" },
         on: { click: _vm.addFunds }
       },
-      [_vm._v("\n        Agregar fondos\n    ")]
+      [_vm._v("\n    Agregar fondos\n  ")]
     ),
     _vm._v(" "),
     _c("p", [
-      _vm._v("Beneficio: "),
+      _vm._v("\n    Beneficio:\n    "),
       _c(
         "span",
         { class: _vm.profit > 0 ? "text-green-600" : "text-red-600" },
@@ -56553,7 +56542,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("p", [
-      _vm._v("Cuenta corriente: "),
+      _vm._v("\n    Cuenta corriente: "),
       _c("span", [_vm._v(_vm._s(_vm.moneyAccountValue))])
     ]),
     _vm._v(" "),
@@ -56568,7 +56557,7 @@ var render = function() {
             expression: "account.length > 0"
           }
         ],
-        staticClass: "w-full py-8 md:px-32"
+        staticClass: "w-full py-6"
       },
       [
         _c("input", {
@@ -56581,7 +56570,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "w-1/2 h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline",
+            "w-1/2 h-12 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg  focus:shadow-outline",
           attrs: { type: "text", placeholder: "Filtrar por producto" },
           domProps: { value: _vm.filters.assetName.value },
           on: {
@@ -56644,9 +56633,9 @@ var render = function() {
                                 { staticClass: "w-1/3 px-4 py-3 text-left" },
                                 [
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(elem.assetName) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -56656,13 +56645,13 @@ var render = function() {
                                 { staticClass: "w-1/3 px-4 py-3 text-left" },
                                 [
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(
                                         elem.assetType == 1
                                           ? "Acción"
                                           : "Criptomoneda"
                                       ) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -56672,9 +56661,9 @@ var render = function() {
                                 { staticClass: "w-1/3 px-4 py-3 text-left" },
                                 [
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(elem.purchasePrice) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -56684,9 +56673,9 @@ var render = function() {
                                 { staticClass: "w-1/3 px-4 py-3 text-left" },
                                 [
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(elem.purchaseDate) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -56696,26 +56685,26 @@ var render = function() {
                                 { staticClass: "w-1/3 px-4 py-3 text-left" },
                                 [
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(elem.quantity) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
                               _vm._v(" "),
                               _c("td", { staticClass: "px-4 py-3 text-left" }, [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n              " +
                                     _vm._s(elem.sellingPrice) +
-                                    "\n                        "
+                                    "\n            "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "px-4 py-3 text-left" }, [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n              " +
                                     _vm._s(elem.sellingDate) +
-                                    "\n                        "
+                                    "\n            "
                                 )
                               ])
                             ]
@@ -56731,7 +56720,7 @@ var render = function() {
                 _c(
                   "thead",
                   {
-                    staticClass: "text-white bg-gray-800",
+                    staticClass: "text-white bg-gray-700",
                     attrs: { slot: "head" },
                     slot: "head"
                   },
@@ -56740,98 +56729,70 @@ var render = function() {
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase ",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "assetName", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Nombre producto\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Nombre producto\n          ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase ",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "assetType", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Tipo de producto\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Tipo de producto\n          ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase ",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "purchasePrice", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Precio de compra\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Precio de compra\n          ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase ",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "purchaseDate", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Fecha de compra\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Fecha de compra\n          ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase ",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "quantity", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Cantidad\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Cantidad\n          ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "sellingPrice", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Precio de venta\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Precio de venta\n          ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-th",
                       {
                         staticClass:
-                          "px-4 py-3 text-sm font-semibold text-left uppercase",
+                          "px-2 py-2 text-sm font-semibold text-left uppercase",
                         attrs: { sortKey: "sellingDate", defaultSort: "desc" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Fecha de venta\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Fecha de venta\n          ")]
                     )
                   ],
                   1
@@ -56885,7 +56846,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h1", { staticClass: "text-4xl mb-10" }, [
+      _c("h1", { staticClass: "mb-10 text-4xl" }, [
         _vm._v("Venta de productos")
       ]),
       _vm._v(" "),
@@ -56900,9 +56861,9 @@ var render = function() {
               expression: "listOfUnsoldAsset.length == 0"
             }
           ],
-          staticClass: "text-xl mb-10"
+          staticClass: "mb-10 text-xl"
         },
-        [_vm._v("No tiene productos en su cartera")]
+        [_vm._v("\n    No tiene productos en su cartera\n  ")]
       ),
       _vm._v(" "),
       _c(
@@ -56933,7 +56894,7 @@ var render = function() {
               _c(
                 "thead",
                 {
-                  staticClass: "text-white bg-gray-800",
+                  staticClass: "text-white bg-gray-700",
                   attrs: { slot: "head" },
                   slot: "head"
                 },
@@ -56944,7 +56905,7 @@ var render = function() {
                       staticClass:
                         "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                     },
-                    [_vm._v("\n                    Producto\n                ")]
+                    [_vm._v("\n          Producto\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -56953,7 +56914,7 @@ var render = function() {
                       staticClass:
                         "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                     },
-                    [_vm._v("\n                    Tipo\n                ")]
+                    [_vm._v("\n          Tipo\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -56962,11 +56923,7 @@ var render = function() {
                       staticClass:
                         "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                     },
-                    [
-                      _vm._v(
-                        "\n                    Precio de compra\n                "
-                      )
-                    ]
+                    [_vm._v("\n          Precio de compra\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -56975,11 +56932,7 @@ var render = function() {
                       staticClass:
                         "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                     },
-                    [
-                      _vm._v(
-                        "\n                    Fecha de compra\n                "
-                      )
-                    ]
+                    [_vm._v("\n          Fecha de compra\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -56988,7 +56941,7 @@ var render = function() {
                       staticClass:
                         "w-1/3 px-4 py-3 text-sm font-semibold text-center uppercase"
                     },
-                    [_vm._v("\n                    Cantidad\n                ")]
+                    [_vm._v("\n          Cantidad\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -56997,11 +56950,7 @@ var render = function() {
                       staticClass:
                         "w-1/3 px-4 py-3 text-sm font-semibold text-left uppercase"
                     },
-                    [
-                      _vm._v(
-                        "\n                    Precio actual\n                "
-                      )
-                    ]
+                    [_vm._v("\n          Precio actual\n        ")]
                   ),
                   _vm._v(" "),
                   _c("th")
@@ -57024,11 +56973,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                        " +
+                          "\n            " +
                             _vm._s(
                               row.asset_type == 2 ? "Criptomoneda" : "Acción"
                             ) +
-                            "\n                    "
+                            "\n          "
                         )
                       ]),
                       _vm._v(" "),
@@ -57054,11 +57003,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                            Vender\n                        "
-                            )
-                          ]
+                          [_vm._v("\n              Vender\n            ")]
                         )
                       ])
                     ]
@@ -73927,8 +73872,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/miguel-angel/Code/2DAW/ProyectoFinGrado/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/miguel-angel/Code/2DAW/ProyectoFinGrado/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/miguel-angel/Code/laravelProjects/ProyectoFinGrado/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/miguel-angel/Code/laravelProjects/ProyectoFinGrado/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
